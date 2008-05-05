@@ -2,8 +2,7 @@
 #labels Featured
 
 == Alpha 0.1 ==
-
-=== Features ===
+==== Features ====
 
   * Mac themed scrollbars and form elements
   * Full synchronization with Google Reader Account
