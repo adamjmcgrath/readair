@@ -1,0 +1,12 @@
+#summary Planned Features and Feature Requests
+#labels Featured
+
+= Planned Features = 
+
+  * Offline mode
+  * Keyboard shortcuts
+  * Windows XP/Vista and custom themes
+  * Unread count in Mac doc icon
+
+
+= Feature Requests = 
