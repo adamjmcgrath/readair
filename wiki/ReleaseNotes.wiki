@@ -1,0 +1,16 @@
+#summary ReadAir Features
+#labels Featured
+
+= REALEASE NOTES =
+
+= Alpha 0.1 =
+
+  * Mac themed scrollbars and form elements
+  * Full synchronization with Google Reader Account
+  * Add/Remove/Manage tags
+  * Subscribe/Unsubscribe from feeds
+  * Search your feeds
+  * User preferences
+  * Resizable viewing pane
+  * Auto software update
+  * Auto login
