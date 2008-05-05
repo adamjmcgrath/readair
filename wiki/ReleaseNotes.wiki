@@ -1,8 +1,6 @@
 #summary ReadAir Features
 #labels Featured
 
-= REALEASE NOTES =
-
 = Alpha 0.1 =
 
   * Mac themed scrollbars and form elements
