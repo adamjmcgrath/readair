@@ -1,0 +1,102 @@
+#item-inner-iframe * {
+	margin: 0;
+	padding: 0;
+}
+
+#item-inner-iframe h1, #item-inner-iframe h2, #item-inner-iframe h3 {
+	font-size: 15px;
+}
+
+#item-inner-iframe ul, #item-inner-iframe ol {
+	list-style-position: inside;
+}
+
+/* head
+---------------------------------------------- */
+
+#item-inner-iframe #head {
+	font-family: "Lucida Grande", Arial;
+}
+
+	#item-inner-iframe #head a {
+		text-decoration: none;
+	}
+
+	#item-inner-iframe #head h1 {
+		background: #DCDCDC url(../img/bg/detailhead.png) repeat-x top left;
+		border-bottom: 1px solid #707070;
+		font-size: 21px;
+		padding: 15px 20px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+	
+	#item-inner-iframe #head h1 a, #item-inner-iframe #head h2 a {
+		cursor: pointer;
+	}
+
+	#item-inner-iframe #head h2 {
+		background: #F2F2F2;
+		color: #B5B5B5;
+		font-size: 12px;
+		font-weight: normal;
+		line-height: 16px;
+		padding: 10px 20px;
+	}
+	
+		#item-inner-iframe #head h2 a {
+			color: #515151;
+			font-weight: bold;
+		}
+	
+		#item-inner-iframe #head h2 img {
+			margin-right: 5px;
+			vertical-align: middle;
+		}
+
+/* content 
+---------------------------------------------- */
+
+#item-inner-iframe #content {
+	margin: 0 20px;
+	max-width: 600px;
+	overflow-x: hidden;
+	padding: 20px 0 50px 0;
+}
+
+	#item-inner-iframe #content, #item-inner-iframe #content * {
+		color: #515151;
+		font-size: 13px;
+		line-height: 20px;
+		margin-bottom: 10px;
+	}
+
+	#item-inner-iframe #content a {
+		cursor: pointer;
+	}
+
+	#item-inner-iframe #content li {
+		margin: 0;
+	}
+	
+	#item-inner-iframe #content a, #item-inner-iframe #head a {
+		color: #588CD6;
+	}
+	
+
+/* Ad Blocking
+---------------------------------------------- */
+
+#item-inner-iframe .feedflare,
+#item-inner-iframe img[src*="feeds.feedburner.com"],
+#item-inner-iframe img[src*="feedster"],
+#item-inner-iframe img[src*="rss.slashdot.org"],
+#item-inner-iframe a[href*="/imageads."] img,
+#item-inner-iframe a[href*="googleadservices"],
+#item-inner-iframe a[href*="ads_by_google"],
+#item-inner-iframe a img[src*="pheedo"],
+#item-inner-iframe a img[src*="doubleclick"],
+#item-inner-iframe a img[src^="http://feeds."],
+#item-inner-iframe a[href^="http://www.projectwonderful.com/advertisehere.php"],
+#item-inner-iframe img[src^="http://www.projectwonderful.com/nojs.php"] {
+	display: none !important;
+}
