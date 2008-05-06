@@ -1,12 +1,12 @@
-////////////////////////////////////////////////////////////////////
-// DLG.layout
-////////////////////////////////////////////////////////////////////
+/*
+DLG.layout
+*/
 
 if (typeof DLG == "undefined") {var DLG = {};}
 
 DLG.Layout = {
 	init: function() {
-		$("ul.select").jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
+		//$("ul.select").jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
 		$("ul#views").tabs();
 		$("input:checkbox").checkbox({cls:'jquery-safari-checkbox'});
 		DLG.Layout.doTabs();
@@ -28,7 +28,7 @@ DLG.Layout = {
 					},
 					duration: "normal"
 				});
-				$("ul.select", ui.panel).jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
+				//$("ul.select", ui.panel).jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
 			}
 		});
 		var intHeight = window.nativeWindow.height - 145;

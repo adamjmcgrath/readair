@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <application xmlns="http://ns.adobe.com/air/application/1.0" minimumPatchLevel="0">
-	<id>com.adammcgrath.GRAir</id>
-	<filename>GRAir</filename>
-	<name>GRAir</name>
-	<version>0.3</version>
+	<id>com.adammcgrath.ReadAir</id>
+	<filename>ReadAir</filename>
+	<name>ReadAir</name>
+	<version>0.1</version>
 	<description>A Desktop Client for Google Reader on Air</description>
 	<!-- <copyright></copyright> -->
 	<initialWindow>
-		<content>grair.html</content>
-		<title>GRAir</title>
+		<content>readair.html</content>
+		<title>ReadAir</title>
 		<!-- <systemChrome>standard/none</systemChrome> -->
 		<!-- <transparent>true/false</transparent> -->
 		<visible>true</visible>
@@ -25,10 +25,10 @@
 	<!-- <installFolder></installFolder> -->
 	<!-- <programMenuFolder></programMenuFolder> -->
 	<icon>
-		<image16x16>icon/AIRApp_16.png</image16x16>
-		<image32x32>icon/AIRApp_32.png</image32x32>
-		<image48x48>icon/AIRApp_48.png</image48x48>
-		<image128x128>icon/AIRApp_128.png</image128x128>
+		<image16x16>icon/ReadAir_16.png</image16x16>
+		<image32x32>icon/ReadAir_32.png</image32x32>
+		<image48x48>icon/ReadAir_48.png</image48x48>
+		<image128x128>icon/ReadAir_128.png</image128x128>
 	</icon>
 	<!-- <customUpdateUI>true/false</customUpdateUI> -->
 	<!-- <allowBrowserInvocation>true</allowBrowserInvocation> -->

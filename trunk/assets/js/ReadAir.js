@@ -662,7 +662,8 @@ var Application = function() {
 			// if there's no items left
 			if (height + amount == 0) {
 				$(e.target).unbind("scroll");
-				Application.getMoreItems();
+				// disable for now...
+				//Application.getMoreItems();
 			}
 		},
 		

@@ -12,7 +12,7 @@ if (typeof GRA == "undefined") {var GRA = {};}
 //////////////////////////////
 	
 	// Update Details
-	var URI_UPDATE = "http://grair/bin/";
+	var URI_UPDATE = "http://readair.adammcgrath.com/update/";
 	var UPDATE_VERSIONS = "versions.xml";
 	
 	// Main URI's
