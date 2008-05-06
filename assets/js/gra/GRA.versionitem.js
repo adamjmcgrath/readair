@@ -26,7 +26,10 @@ GRA.versionitem.prototype = {
 		return f.value();
 	},
 	fileUrl: function() {
-		return GRA.cons.URI_UPDATE() + this.filename();
+		var f = new LIB.fields.string();
+		var node = LIB.dom.nodeForXPath(this.XMLNode, "./url");
+		f.setFromNode(node);
+		return f.value();
 	},
 	name: function() {
 		var f = new LIB.fields.string();
