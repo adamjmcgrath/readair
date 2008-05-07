@@ -35,6 +35,7 @@ var Application = function() {
 	var _feed_list = null;
 	// Prompt Cludge: fixing the screwed up prompt support I've been experiencing:
 	// http://www.adobe.com/cfusion/webforums/forum/messageview.cfm?forumid=75&catid=697&threadid=1359817
+	// Turns out it was just a weird runtime version thing, gonna leave it in for now...
 	var _promptCludge = null;
 	
 	/* window objects 
@@ -44,6 +45,14 @@ var Application = function() {
 	var _dialogue_loading = null;
 	// The preferences dialogue
 	var _dialogue_prefs = null;
+	
+	/* timers
+	------------------------------------------ */
+	
+	// Refresh
+	var _refresh_timer = null;
+	// Token
+	var _token_timer = null;
 	
 	/* HTML elements 
 	------------------------------------------ */
@@ -103,7 +112,9 @@ var Application = function() {
 			_starred_label = $("#starred-items");
 			_shared_label = $("#shared-items");			
 			
-			// Check fo updates
+			// Do preferences menu
+			Application.doPrefsMenu();
+			// Check for updates
 			GRA.update.init();			
 			// Initiate the layout
 			Layout.init();
@@ -120,16 +131,16 @@ var Application = function() {
 		set up event listeners
 		------------------------------------------ */		
 		setupEventListeners: function() {
-			/* 
-			main app clicks */
+			
+			/* main app clicks */
 			// click on a feed
 			_feeds_wrap.click(this.feedsClicked);
 			// click on an item
 			_items_wrap.click(this.itemsClicked);
 			// click on an item detail
 			_item_wrap.click(this.itemClicked);
-			/* 
-			menubar */
+			
+			/* menubar */
 			// Refresh btn click
 			_refresh_btn.click(this.getFeeds);
 			// Previous item btn click
@@ -140,13 +151,39 @@ var Application = function() {
 			_mark_btn.click(this.readAllItems);
 			// search form submit
 			_search_form.submit(this.startSearch);
-			/* 
-			feeds toolbar clicks*/
+			
+			/* feeds toolbar clicks*/
 			// add btn
 			_add_btn.click(this.addMenu);
 			// subtract btn
 			_subtract_btn.click(this.subtractMenu);
+			
+			/* on application closing */
+			air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, Application.closing);
 		},
+		
+		/* 
+		------------------------------------------
+ 		timers
+		
+		setUpTimers:Void
+		------------------------------------------ */		
+		setUpTimers: function() {
+			if (Application._refresh_timer) {
+				clearTimeout(Application._refresh_timer);
+			}
+			// 1 min = 60000 milliseconds
+			var mins = 60000;
+			var refreshTime = GRA.encryptedstore.refreshTime();
+			// Refresh Feeds
+			if (refreshTime > 0) {
+				Application._refresh_timer = setTimeout(Application.Application.getFeeds,refreshTime*mins);
+			}
+			// Token (every 2 mins)
+			if (!Application._token_timer) {
+				Application._token_timer = setTimeout(Application.getToken,2*mins);
+			}
+		},		
 		
 		/* 
 		------------------------------------------
@@ -215,6 +252,16 @@ var Application = function() {
 			}
 		},
 		
+		/* closing:Void
+		e:Event - the app closing event
+		------------------------------------------ */
+		closing: function(e) {
+			var bool = GRA.encryptedstore.saveLogin() == "false";
+			if (bool) {
+				GRA.encryptedstore.removeLoginDetails();
+			}
+		},
+
 		/* 
 		------------------------------------------
  		Login
@@ -241,7 +288,6 @@ var Application = function() {
 		------------------------------------------ */
 		loggedIn: function(e) {
 			Application._session = new GRA.session(e.target.data);
-			GRA.encryptedstore.setLoginDetails(Application._login.getEmail(),Application._login.getPasswd(),Application._login.saveLogin());
 			Application.getToken();
 			Application.getFeeds();	
 		},
@@ -527,7 +573,7 @@ var Application = function() {
 					data['feedId'] = $(".selected:first", _tags_wrap).attr("href");
 					menu.addItem("Delete Tag",false,false,true);
 					// disabled until I can work out why I get permission denied
-					menu.addItem("Delete Feed",Application.deleteFeed,false,true,false,data);
+					menu.addItem("Delete Feed",Application.deleteFeed,false,false,false,data);
 				}
 			} else {
 				menu.addItem("Delete Tag",false,false,true);
@@ -549,7 +595,7 @@ var Application = function() {
 					i: null,
 					s: e.target.data['tagId']
 				}
-				LIB.httpr.postRequest(GRA.cons.URI_DISABLE_TAG(),Application.sentEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_DISABLE_TAG(),Application.sentFeedEdit,data,Application._session.cookie());
 			}
 		},
 
@@ -566,7 +612,7 @@ var Application = function() {
 					s: e.target.data['feedId']
 				}
 				// TO DO: CHECK THIS URL
-				LIB.httpr.postRequest(GRA.cons.URI_DISABLE_TAG(),Application.sentEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,Application._session.cookie());
 			}
 		},
 		
@@ -629,7 +675,7 @@ var Application = function() {
 					T: Application._token.getToken(),
 					quickadd: str
 				}
-				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_ADD(),Application.sentEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_ADD(),Application.sentFeedEdit,data,Application._session.cookie());
 			}
 		},
 		
@@ -646,7 +692,7 @@ var Application = function() {
 				s: id
 			}
 			add ? data['a'] = add : data['r'] = remove;
-			LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentEdit,data,Application._session.cookie());
+			LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,Application._session.cookie());
 		},
 		
 		/* 
@@ -788,6 +834,38 @@ var Application = function() {
 		------------------------------------------ */		
 		sentEdit: function(e) {
 			air.trace(e.target.data);
+		},
+		
+		/*sentFeedEdit
+		e:Event - complete event
+		------------------------------------------ */		
+		sentFeedEdit: function(e) {
+			Application.getFeeds();
+			air.trace(e.target.data);
+		},
+		
+		/* 
+		------------------------------------------
+		Preferences
+		
+		do Preferences Menu
+		------------------------------------------ */
+		doPrefsMenu: function() {
+			if (air.NativeApplication.supportsMenu) {
+				var menu = air.NativeApplication.nativeApplication.menu.getItemAt(0).submenu;
+				// separator
+				menu.addItemAt(new air.NativeMenuItem("",true),1);
+				// prefItem
+				var prefItem = menu.addItemAt(new air.NativeMenuItem("Preferences"),2);
+				prefItem.keyEquivalent = ',';
+				air.trace(prefItem);
+				prefItem.addEventListener(air.Event.SELECT, function() {
+					Application._dialogue_prefs = new GRA.dialogue("general");
+					Application._dialogue_prefs.open();
+				});
+				//separator
+				menu.addItemAt(new air.NativeMenuItem("",true),3);
+			}
 		},
 		
 		/* 

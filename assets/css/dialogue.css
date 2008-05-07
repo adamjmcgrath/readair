@@ -61,13 +61,14 @@ table.form {
 }
 
 .form td.label {
-	line-height: 18px;
+	line-height: 21px;
 	padding-right: 5px;
 	text-align: right;
 	width: 150px;
 }
 
 .form input, .form select {
+	line-height: 17px;
 	width: 100%;
 }
 
