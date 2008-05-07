@@ -28,10 +28,11 @@ var Application = theOpener.Application;
 		------------------------------------------ */
 		init: function() {
 			Dialogue.setupEventListeners();
+			Dialogue.setupForms();
 		},
 		
 		
-		/* setup event listeners
+		/* setupEventListeners:Void
 		------------------------------------------ */
 		setupEventListeners: function() {
 			$("#prefs-form").submit(Dialogue.setPrefs);
@@ -39,11 +40,24 @@ var Application = theOpener.Application;
 			$("button.cancel").click(function() {window.nativeWindow.close()});
 		},
 		
+		/* setupForms:Void
+		------------------------------------------ */
+		setupForms: function() {
+			if (GRA.encryptedstore.savedLoginDetails()) {	
+				$("#refreshtime").val(GRA.encryptedstore.getItem("refresh"));
+				$("#checkatstart").val(GRA.encryptedstore.getItem("update"));
+				$("#email").val(GRA.encryptedstore.getItem("email"));
+				$("#passwd").val(GRA.encryptedstore.getItem("passwd"));
+				$("#rememeber").val(GRA.encryptedstore.getItem("rememeber"));
+			}
+		},
+		
 		/* set prefs and return login
 		e:Event - Prefs form submit event
 		------------------------------------------ */
 		setPrefs: function(e) {
-			GRA.encryptedstore.setLoginDetails(e.target.email.value, e.target.passwd.value);
+			GRA.encryptedstore.setLoginDetails(e.target.email.value, e.target.passwd.value, e.target.remember.checked);
+			GRA.encryptedstore.setPrefs(e.target.checkatstart.value, e.target.refreshtime.value)
 			window.close();
 			e.preventDefault();
 		},

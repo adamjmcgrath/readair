@@ -26,7 +26,7 @@ GRA.update = {
 		var appDescriptorObj = new GRA.appdescriptor(appXML);
 		var currentVersion = appDescriptorObj.version();
 		air.trace("latestVersion: " + latestVersion + "\n" + "currentVersion: " + currentVersion);
-		var msg = "You have version " + currentVersion + ",\n Would you like to upgrade to version " + latestVersion;
+		var msg = "You have version " + currentVersion + ",\n Would you like to upgrade to version " + latestVersion + "?";
 		if (latestVersion > currentVersion && confirm(msg)) {
 			var fileUrl = latestVersionObj.fileUrl();
 			air.trace("fileUrl: " + fileUrl);
@@ -60,11 +60,11 @@ GRA.update = {
 		updater.update(airFile, version);
 	},
 	
-	fileGet: function(theURI,theCallback) {
-		var urlReq = new air.URLRequest(theURI);
+	fileGet: function(url,callback) {
+		var urlReq = new air.URLRequest(url);
 		urlReq.method = air.URLRequestMethod.GET;
 		var urlStream = new air.URLStream();
-		urlStream.addEventListener(air.Event.COMPLETE, theCallback);
+		urlStream.addEventListener(air.Event.COMPLETE, callback);
 		urlStream.addEventListener(air.ProgressEvent.PROGRESS, function(e) {
 			air.trace("====================\nPROGRESS: " + (e.bytesLoaded/e.bytesTotal)*100);
 		});
