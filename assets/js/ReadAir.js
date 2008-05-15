@@ -4,7 +4,7 @@ The main application file for google reader air
 */                                            
 
 // Aliases
-var console = air.Introspector.Console;
+// var console = air.Introspector.Console;
 
 var Application = function() {
 
@@ -33,7 +33,7 @@ var Application = function() {
 	var _tag_list = null;
 	// Instance of GRA.feedlist
 	var _feed_list = null;
-	// Prompt Cludge: fixing the screwed up prompt support I've been experiencing:
+	// Prompt Cludge: fixing the (no longer) screwed up prompt support I've been experiencing:
 	// http://www.adobe.com/cfusion/webforums/forum/messageview.cfm?forumid=75&catid=697&threadid=1359817
 	// Turns out it was just a weird runtime version thing, gonna leave it in for now...
 	var _promptCludge = null;
@@ -158,6 +158,9 @@ var Application = function() {
 			// subtract btn
 			_subtract_btn.click(this.subtractMenu);
 			
+			/* keypress */
+			$(document).keypress(this.shortcuts);
+
 			/* on application closing */
 			air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, Application.closing);
 		},
@@ -249,6 +252,22 @@ var Application = function() {
 				request = new air.URLRequest(e.target.href);
 				air.navigateToURL(request);
 				e.preventDefault();
+			}
+		},
+		
+		/* shortcuts:Void
+		e:Event - keypress event
+		------------------------------------------ */
+		shortcuts: function(e) {
+			switch (e.which) {
+			// j
+			case 106:
+				return Application.getNextItem();
+			// k
+			case 107:
+				return Application.getPrevItem();
+			default:
+				// do nothing
 			}
 		},
 		
@@ -759,6 +778,7 @@ var Application = function() {
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
 			Application.readItem(elm,atomEntry);	
 			_item_wrap.html(atomEntry.HTML());
+			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();
 		},
 
@@ -865,6 +885,16 @@ var Application = function() {
 				});
 				//separator
 				menu.addItemAt(new air.NativeMenuItem("",true),3);
+			} else if (air.NativeWindow.supportsMenu) {
+				var menu = new air.NativeMenu();
+				var submenu = new air.NativeMenu();
+				submenu.addItem(new air.NativeMenuItem("Preferences"));
+				submenu.addEventListener(air.Event.SELECT, function() {
+					Application._dialogue_prefs = new GRA.dialogue("general");
+					Application._dialogue_prefs.open();
+				});
+				menu.addSubmenu(submenu,"ReadAir");
+				window.nativeWindow.menu = menu;
 			}
 		},
 		
