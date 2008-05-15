@@ -353,7 +353,7 @@ var Application = function() {
 			$("#tag-list").html(Application._feed_list.HTML());
 			// set feed list states
 			LIB.httpr.getRequest(GRA.cons.URI_TAG_LIST(),Application.setLabelIds,Application._session.cookie());
-			LIB.httpr.getRequest(GRA.cons.URI_UNREAD_COUNT(),Application.setUnreadCount,Application._session.cookie());
+			Application.getUnreadCount();
 			LIB.httpr.getRequest(GRA.cons.URI_STREAM_PREFS(),Application.setFolderStatus,Application._session.cookie());
 		},
 
@@ -364,6 +364,12 @@ var Application = function() {
 			Application._tag_list = new GRA.taglist(e.target.data);
 			_starred_label.attr("href",Application._tag_list.getStarredId());
 			_shared_label.attr("href",Application._tag_list.getSharedId());
+		},
+		
+		/* getUnreadCount:Void
+		------------------------------------------ */
+		getUnreadCount: function() {
+			LIB.httpr.getRequest(GRA.cons.URI_UNREAD_COUNT(),Application.setUnreadCount,Application._session.cookie());
 		},
 		
 		/* Set unread count
@@ -387,6 +393,22 @@ var Application = function() {
 						$("span:first", this).hide().empty();
 					}
 				});
+			});
+		},
+		
+		/* Set unread count
+		id:String - the id of the feed
+		reduce:Number - the number to reduce the count by default 1
+		------------------------------------------ */
+		setUnreadCountById: function(id,reduce) {
+			if (!reduce) {reduce = 1};
+			$("div[@href='" + id + "'], #reading-list", _feeds_wrap).each(function(i) {
+				count = ($("span:first", this).text()) - reduce;
+				if (count > 0) {
+					$("span:first", this).show().text(count);
+				} else {
+					$("span:first", this).hide().empty();
+				}
 			});
 		},
 		
@@ -812,6 +834,7 @@ var Application = function() {
 				var add = "user/-/state/com.google/read";
 				var id = atomEntry.id();
 				var source = atomEntry.sourceId();
+				Application.setUnreadCountById(source);
 				Application.sendItemStatus(id,source,add);
 			}
 		},
