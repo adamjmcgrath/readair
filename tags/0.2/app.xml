@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/1.0" minimumPatchLevel="0">
+	<id>com.adammcgrath.ReadAir</id>
+	<filename>ReadAir</filename>
+	<name>ReadAir</name>
+	<version>0.2</version>
+	<description>A Desktop Client for Google Reader on Air</description>
+	<!-- <copyright></copyright> -->
+	<initialWindow>
+		<content>readair.html</content>
+		<title>ReadAir</title>
+		<!-- <systemChrome>standard/none</systemChrome> -->
+		<!-- <transparent>true/false</transparent> -->
+		<visible>true</visible>
+		<!-- <minimizable>true/false</minimizable> -->
+		<!-- <maximizable>true/false</maximizable> -->
+		<!-- <resizable>true/false</resizable> -->
+		<width>800</width>
+		<height>600</height>
+		<x>200</x>
+		<y>100</y>
+		<minSize>600 400</minSize>
+		<!-- <maxSize></maxSize> -->
+	</initialWindow>
+	<!-- <installFolder></installFolder> -->
+	<!-- <programMenuFolder></programMenuFolder> -->
+	<icon>
+		<image16x16>icon/ReadAir_16.png</image16x16>
+		<image32x32>icon/ReadAir_32.png</image32x32>
+		<image48x48>icon/ReadAir_48.png</image48x48>
+		<image128x128>icon/ReadAir_128.png</image128x128>
+	</icon>
+	<!-- <customUpdateUI>true/false</customUpdateUI> -->
+	<!-- <allowBrowserInvocation>true</allowBrowserInvocation> -->
+	<!-- <fileTypes> -->
+		<!-- <fileType> -->
+			<!-- <name></name> -->
+			<!-- <extension></extension> -->
+			<!-- <description></description> -->
+			<!-- <contentType></contentType> -->
+			<!-- <icon>
+				<image16x16></image16x16>
+				<image32x32></image32x32>
+				<image48x48></image48x48>
+				<image128x128></image128x128>
+			</icon> -->
+		<!-- </fileType> -->
+	<!-- </fileTypes> -->
+</application>
