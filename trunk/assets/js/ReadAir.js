@@ -498,7 +498,7 @@ var Application = function() {
 		getMoreItems: function() {
 			var id = Application._atom.id();
 			var continuation = Application._atom.continuation();
-			var url = GRA.cons.URI_CONT() + "/" + escape(id) + "?c=" + continuation + "&r=n&n=40";
+			var url = GRA.cons.URI_CONT() + "/" + escape(id) + "?c=" + continuation + "&r=n&n=10";
 			LIB.httpr.getRequest(url,Application.gotMoreItems,Application._session.cookie());
 		},
 		
@@ -750,7 +750,7 @@ var Application = function() {
 			if (height + amount == 0) {
 				$(e.target).unbind("scroll");
 				// disable for now...
-				//Application.getMoreItems();
+				Application.getMoreItems();
 			}
 		},
 		

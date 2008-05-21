@@ -19,5 +19,9 @@ LIB.string = {
 	substringAfter: function(str,separator) {
 		var array = str.split(separator)
 		return array[1];
+	},
+	endsWith: function(str,testStr) {
+		var reg = new RegExp (testStr + "$");
+		return reg.test(str);
 	}
 }
