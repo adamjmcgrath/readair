@@ -64,9 +64,6 @@ GRA.atomentry.prototype = {
 		} else if (this._isJSON()) {
 			isStarred = false;
 			for (var i=0; i < this.tags().length; i++) {
-				
-				//air.trace(this.tags[i]);
-				
 				if (this.tags()[i].indexOf('state/com.google/starred') !=-1) {
 					isStarred = true;
 				}
@@ -81,8 +78,8 @@ GRA.atomentry.prototype = {
 			isRead = Boolean(nodes.length);
 		} else if (this._isJSON()) {
 			for (var i=0; i < this.tags().length; i++) {
-				if (this.tags()[i].indexOf('state/com.google/fresh') != -1) {
-					isRead = false;
+				if (LIB.string.endsWith(this.tags()[i],"state/com.google/read")) {	
+					isRead = true;
 				}
 			};
 		}
