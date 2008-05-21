@@ -72,14 +72,15 @@ GRA.atomentry.prototype = {
 		return isStarred;
 	},
 	isRead: function() {
-		var isRead = new Boolean();
+		var isRead = false;
 		if (this._isXML()) {
 			var nodes = LIB.dom.evaluateXPath(this._xml, "./atom:category[@label='read']", this._ns);
-			isRead = Boolean(nodes.length);
+			isRead = nodes.length > 0 ? true : false;
 		} else if (this._isJSON()) {
 			for (var i=0; i < this.tags().length; i++) {
 				if (LIB.string.endsWith(this.tags()[i],"state/com.google/read")) {	
-					isRead = true;
+					//isRead = true;
+					return true;
 				}
 			};
 		}
