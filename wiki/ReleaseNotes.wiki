@@ -1,6 +1,10 @@
 #summary ReadAir Features
 #labels Featured
 
+=== Alpha 0.21 (The D'Oh! Release) ===
+==== Bug Fixes ====
+  * Unread status wasn't showin when using continuation - this is now fixed (Apologies to the 50 or so people that downloaded 0.2!)
+
 === Alpha 0.2 ===
 ==== Features ====
   *  Continuation: Users can now get more than 20 feed items, just scroll to the bottom and ReadAir will go off and fetch another 10 items and so on...
