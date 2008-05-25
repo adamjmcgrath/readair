@@ -53,12 +53,6 @@ if (typeof GRA == "undefined") {var GRA = {};}
 	var API_STREAM_ITEMS_CONTENTS = "stream/items/contents";
 	var API_STREAM_CONTENTS = "stream/contents";
 	
-	// Login Obj
-	var LOGIN_DATA = new Object();
-	LOGIN_DATA['service'] = "reader";
-	LOGIN_DATA['source'] = "GRAir/a1";
-	LOGIN_DATA['continue'] = "http://www.google.com/"
-
 // Getters
 //////////////////////////////
 	
@@ -68,7 +62,6 @@ if (typeof GRA == "undefined") {var GRA = {};}
 	
 	// Login/Logout
 	window["GRA"]["cons"]["URI_LOGIN"] = function() {return URI_LOGIN;}
-	window["GRA"]["cons"]["LOGIN_DATA"] = function() {return LOGIN_DATA;}
 	window["GRA"]["cons"]["URI_LOGOUT"] = function() {return URI_LOGOUT;}
 
 	// Atom

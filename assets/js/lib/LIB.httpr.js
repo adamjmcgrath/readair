@@ -9,15 +9,13 @@ if (typeof LIB == "undefined") {var LIB = {};}
 	
 	if(!window.LIB.httpr) { window["LIB"]["httpr"] = {} }
 
-	function getRequest(url,callback,requestHeaders) {
+	function getRequest(url,callback,cookie) {
 		var loader = new air.URLLoader();
 		var request = new air.URLRequest(url);
 		request.method = "GET";
-		if (requestHeaders) {
+		if (cookie) {
 			request.requestHeaders = new Array();
-			for (prop in requestHeaders) {
-				request.requestHeaders.push(new air.URLRequestHeader(prop, requestHeaders[prop]));
-			}
+			request.requestHeaders.push(new air.URLRequestHeader("Cookie", cookie));
 		}
 		request.manageCookies = false;
 		loader.addEventListener(air.Event.COMPLETE, callback);
@@ -27,7 +25,7 @@ if (typeof LIB == "undefined") {var LIB = {};}
 		loader.load(request);
 	}
 
-	function postRequest(url,callback,data,requestHeaders) {
+	function postRequest(url,callback,data,cookie) {
 		var loader = new air.URLLoader();
 		var request = new air.URLRequest(url);
 		if (data) {
@@ -45,11 +43,9 @@ if (typeof LIB == "undefined") {var LIB = {};}
 			}
 		request.data = variables;
 		}
-		if (requestHeaders) {
+		if (cookie) {
 			request.requestHeaders = new Array();
-			for (var prop in requestHeaders) {
-				request.requestHeaders.push(new air.URLRequestHeader(prop, requestHeaders[prop]));
-			}
+			request.requestHeaders.push(new air.URLRequestHeader("Cookie", cookie));
 		}
 		request.method = "POST";
 		request.manageCookies = false;

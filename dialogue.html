@@ -9,8 +9,7 @@
 		<link rel="stylesheet" href="assets/css/jquery.checkbox.css" type="text/css" />
 		<link rel="stylesheet" href="assets/css/jquery.safari-checkbox.css" type="text/css" />
 
-		 <script src="assets/js/air/AIR.aliases.js" type="text/javascript"></script>
-		<script src="assets/js/air/AIR.introspective.js" type="text/javascript"></script>
+		<script src="assets/js/air/AIR.aliases.js" type="text/javascript"></script>
 				
 		<script src="assets/js/jquery/jquery.js" type="text/javascript"></script>
 		<script src="assets/js/jquery/jquery.dimensions.js" type="text/javascript"></script>
@@ -24,47 +23,22 @@
 		
 		<script src="assets/js/jquery/ui.base.js" type="text/javascript"></script>
 		<script src="assets/js/jquery/ui.tabs.js" type="text/javascript"></script>
+		
+		<script src="assets/js/lib/LIB.lang.js" type="text/javascript"></script>
+		<script src="assets/js/lib/LIB.httpr.js" type="text/javascript"></script>
 
-		<script src="assets/js/dlg/Dialogue.js" type="text/javascript"></script>
-		<script src="assets/js/dlg/DLG.layout.js" type="text/javascript"></script>
+		<script src="assets/js/dlg/DLG.login.js" type="text/javascript"></script>
+		<script src="assets/js/dlg/DLG.session.js" type="text/javascript"></script>
+		<script src="assets/js/dlg/dialogue.js" type="text/javascript"></script>
+		<script src="assets/js/dlg/layout.js" type="text/javascript"></script>
 		
 	</head>
 	<body>
 		
 		<ul id="views">
 			<li><a href="#prefs"></a></li>
-			<li><a href="#prompt"></a></li>
 			<li><a href="#loading"></a></li>
 		</ul>
-		
-		<div id="prompt">
-			<form id="prompt-form">
-				<table class="form">
-					<tr>
-						<td class="label">
-							<label>
-								<script type="text/javascript">
-									if (feedId) {
-										document.write("Tag Name:");
-									} else {
-										document.write("Feed Url:");
-									}
-								</script>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="myprompt" id="myprompt" />
-						</td>
-					</tr>
-				</table>
-				<div class="buttons">
-					<button class="cancel">Cancel</button>
-					<button class="on">OK</button>
-				</div>
-			</form>
-		</div>
 		
 		<div id="prefs">
 			<div id="nav">
