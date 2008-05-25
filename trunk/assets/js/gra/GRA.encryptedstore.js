@@ -23,6 +23,11 @@ GRA.encryptedstore = {
 	// remember: weather to remember the users details after the app closes (true/false)
 	_REMEMBER: "remember",
 	
+	/* Session:
+	------------------------------------------ */
+	
+	_COOKIE: "cookie",
+	
 	/* Preferences
 	------------------------------------------ */
 	
@@ -124,6 +129,7 @@ GRA.encryptedstore = {
 		air.EncryptedLocalStore.removeItem(this._EMAIL);
 		air.EncryptedLocalStore.removeItem(this._PASSWD);
 		air.EncryptedLocalStore.removeItem(this._REMEMBER);
+		air.EncryptedLocalStore.removeItem(this._COOKIE);
 	}
 	
 }

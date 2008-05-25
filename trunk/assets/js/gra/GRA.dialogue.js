@@ -31,8 +31,6 @@ GRA.dialogue.prototype = {
 			return this.loading;
 		case "general":
 			return this.general;
-		case "prompt":
-			return this.prompt;
 		case "account":
 			return this.account;
 		default:
@@ -88,12 +86,6 @@ GRA.dialogue.prototype.loading = {
 	url: "app:/dialogue.html#loading",
 	height: 70,
 	width: 300
-}
-
-GRA.dialogue.prototype.prompt = {
-	url: "app:/dialogue.html#prompt",
-	height: 140,
-	width: 420
 }
 
 GRA.dialogue.prototype.general = {

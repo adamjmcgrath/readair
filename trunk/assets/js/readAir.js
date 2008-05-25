@@ -19,8 +19,8 @@ var Application = function() {
 	
 	// Instance of GRA.login (email,password,save)
 	var _login = null;
-	// Instance of GRA.session (auth cookie)
-	var _session = null;
+	// Cookie
+	var _cookie = null;
 	// Instance of GRA.token (get/set token for editing)
 	var _token = null;
 
@@ -33,10 +33,6 @@ var Application = function() {
 	var _tag_list = null;
 	// Instance of GRA.feedlist
 	var _feed_list = null;
-	// Prompt Cludge: fixing the (no longer) screwed up prompt support I've been experiencing:
-	// http://www.adobe.com/cfusion/webforums/forum/messageview.cfm?forumid=75&catid=697&threadid=1359817
-	// Turns out it was just a weird runtime version thing, gonna leave it in for now...
-	var _promptCludge = null;
 	
 	/* window objects 
 	------------------------------------------ */
@@ -289,26 +285,40 @@ var Application = function() {
 		------------------------------------------ */
 		checkLogin: function() {
 			/* If saved details */
-			if (GRA.encryptedstore.savedLoginDetails()) {
-				// Log in to application
-				var details = GRA.encryptedstore.getLoginDetails();
-				Application._login = new GRA.login(details['email'],details['pass'],details['remember']);
-				LIB.httpr.postRequest(GRA.cons.URI_LOGIN(),Application.loggedIn,Application._login.data());
+			if (GRA.encryptedstore.getItem("cookie")) {
+				_cookie = GRA.encryptedstore.getItem("cookie");
+				Application.loggedIn();
 			} else {
-				//Launch application dialogue
-				Application._dialogue_prefs = new GRA.dialogue("account", Application);
-				// open the dialogue and send onclose callback
-				Application._dialogue_prefs.open(Application.checkLogin);
+				if (confirm("You are not currently Logged in, would you like to log in?")) {
+					//Launch application dialogue
+					Application._dialogue_prefs = new GRA.dialogue("account", Application);
+					// open the dialogue and send onclose callback
+					Application._dialogue_prefs.open(Application.checkLogin);
+				}
 			}
 		},
 		
 		/* Logged in
-		e:Event - The login complete event
 		------------------------------------------ */
-		loggedIn: function(e) {
-			Application._session = new GRA.session(e.target.data);
+		loggedIn: function() {
 			Application.getToken();
-			Application.getFeeds();	
+			Application.getFeeds();
+		},
+		
+		/* Log out
+		------------------------------------------ */
+		logout: function() {
+			GRA.encryptedstore.removeLoginDetails();
+			LIB.httpr.postRequest(GRA.cons.URI_LOGOUT(),Application.loggedOut);
+		},
+		
+		/* Logged out
+		------------------------------------------ */
+		loggedOut: function() {
+			//Launch application dialogue
+			Application._dialogue_prefs = new GRA.dialogue("account", Application);
+			// open the dialogue and send onclose callback
+			Application._dialogue_prefs.open(Application.checkLogin);
 		},
 
 		/* 
@@ -318,7 +328,7 @@ var Application = function() {
 		Get Token
 		------------------------------------------ */
 		getToken: function() {
-			LIB.httpr.getRequest(GRA.cons.URI_TOKEN(),Application.gotToken,Application._session.cookie());
+			LIB.httpr.getRequest(GRA.cons.URI_TOKEN(),Application.gotToken,_cookie);
 		},
 
 		/* Got Token
@@ -341,7 +351,7 @@ var Application = function() {
 		------------------------------------------ */
 		getFeeds: function() {
 			Application.showLoading();
-			LIB.httpr.getRequest(GRA.cons.URI_SUBSCRIPTION_LIST(),Application.gotFeeds,Application._session.cookie());
+			LIB.httpr.getRequest(GRA.cons.URI_SUBSCRIPTION_LIST(),Application.gotFeeds,_cookie);
 		},
 
 		/* Got Feeds
@@ -352,9 +362,9 @@ var Application = function() {
 			// display feed list
 			$("#tag-list").html(Application._feed_list.HTML());
 			// set feed list states
-			LIB.httpr.getRequest(GRA.cons.URI_TAG_LIST(),Application.setLabelIds,Application._session.cookie());
+			LIB.httpr.getRequest(GRA.cons.URI_TAG_LIST(),Application.setLabelIds,_cookie);
 			Application.getUnreadCount();
-			LIB.httpr.getRequest(GRA.cons.URI_STREAM_PREFS(),Application.setFolderStatus,Application._session.cookie());
+			LIB.httpr.getRequest(GRA.cons.URI_STREAM_PREFS(),Application.setFolderStatus,_cookie);
 		},
 
 		/* Set id attributes of labels: starred/shared
@@ -369,7 +379,7 @@ var Application = function() {
 		/* getUnreadCount:Void
 		------------------------------------------ */
 		getUnreadCount: function() {
-			LIB.httpr.getRequest(GRA.cons.URI_UNREAD_COUNT(),Application.setUnreadCount,Application._session.cookie());
+			LIB.httpr.getRequest(GRA.cons.URI_UNREAD_COUNT(),Application.setUnreadCount,_cookie);
 		},
 		
 		/* Set unread count
@@ -467,7 +477,7 @@ var Application = function() {
 				s: id,
 				v: isExpanded
 			}
-			LIB.httpr.postRequest(GRA.cons.URI_STREAM_PREFS_SET(),Application.sentEdit,data,Application._session.cookie());	
+			LIB.httpr.postRequest(GRA.cons.URI_STREAM_PREFS_SET(),Application.sentEdit,data,_cookie);	
 		},
 
 		/* 
@@ -480,7 +490,7 @@ var Application = function() {
 		------------------------------------------ */
 		getItems: function(id) {
 			var url = GRA.cons.URI_ATOM() + escape(id);
-			LIB.httpr.getRequest(url,Application.gotItems,Application._session.cookie());
+			LIB.httpr.getRequest(url,Application.gotItems,_cookie);
 		},
 		
 		/* Got Items
@@ -499,7 +509,7 @@ var Application = function() {
 			var id = Application._atom.id();
 			var continuation = Application._atom.continuation();
 			var url = GRA.cons.URI_CONT() + "/" + escape(id) + "?c=" + continuation + "&r=n&n=10";
-			LIB.httpr.getRequest(url,Application.gotMoreItems,Application._session.cookie());
+			LIB.httpr.getRequest(url,Application.gotMoreItems,_cookie);
 		},
 		
 		/* Got More Items
@@ -524,7 +534,7 @@ var Application = function() {
 			$(e.target).addClass("loading");
 			var searchTerm = e.target.q.value;
 			var searchUrl = GRA.cons.URI_SEARCH() + "?num=50&q=" + searchTerm;
-			LIB.httpr.getRequest(searchUrl,Application.getSearchResults,Application._session.cookie());	
+			LIB.httpr.getRequest(searchUrl,Application.getSearchResults,_cookie);	
 			e.preventDefault();
 		},
 		
@@ -542,7 +552,7 @@ var Application = function() {
 				var id = $(searchResultItems[i]).text();
 				data['i'].push(id);
 			};
-			LIB.httpr.postRequest(GRA.cons.URI_CONTENTS(),Application.gotSearchResults,data,Application._session.cookie());
+			LIB.httpr.postRequest(GRA.cons.URI_CONTENTS(),Application.gotSearchResults,data,_cookie);
 		},
 		
 		/* Display the search results
@@ -636,7 +646,7 @@ var Application = function() {
 					i: null,
 					s: e.target.data['tagId']
 				}
-				LIB.httpr.postRequest(GRA.cons.URI_DISABLE_TAG(),Application.sentFeedEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_DISABLE_TAG(),Application.sentFeedEdit,data,_cookie);
 			}
 		},
 
@@ -653,7 +663,7 @@ var Application = function() {
 					s: e.target.data['feedId']
 				}
 				// TO DO: CHECK THIS URL
-				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,_cookie);
 			}
 		},
 		
@@ -671,11 +681,10 @@ var Application = function() {
 		e:Event - the click event of the menu item
 		------------------------------------------ */
 		createTag: function(e) {
-			// need to send
-			// feedId: e.target.data['feedId']
-			_promptCludge = null;
-			var tagPrompt = new GRA.dialogue("prompt");		
-			tagPrompt.open(Application.doPromptCludge,e.target.data['feedId']);
+			var str = prompt("Please enter the name of the tag:");
+			if (str) {
+				Application.editFeedTag(e.target.data['feedId'],"user/-/label/" + str);
+			}
 		},
 		
 		/* Gets a feed URL, the subscribes to it
@@ -683,43 +692,16 @@ var Application = function() {
 		e:Event - the click event of the menu item
 		------------------------------------------ */
 		addFeed: function(e) {
-			_promptCludge = null;
-			var feedPrompt = new GRA.dialogue("prompt");
-			feedPrompt.open(doPromptCludge);
-		},
-		
-		/* 
-		Prompt Returned from GRA.dialogue.
-		str:String - the value returned from the prompt dialogue
-		id:String - the Feed id (required if editing tag)
-		------------------------------------------ */
-		setPromptCludge: function(str,id) {
-			_promptCludge = {
-				str: str,
-				id: id
-			}
-		},
-		
-		/* Executes on prompt close and picks up cludge object
-		------------------------------------------ */
-		doPromptCludge: function() {
-			// get values from _promptCludge Object
-			var str = _promptCludge['str'];
-			var id = _promptCludge['id'];
-			alert(str + " : " + id);
-			// if there is a value for id, the prompt was for a new tag
-			if (id) {
-				Application.editFeedTag(id,"user/-/label/" + str);
-			} else {
-				// else it was for a new subscription
+			var str = prompt("Please enter full url of feed:");
+			if (str) {
 				data = {
 					T: Application._token.getToken(),
 					quickadd: str
 				}
-				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_ADD(),Application.sentFeedEdit,data,Application._session.cookie());
+				LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_ADD(),Application.sentFeedEdit,data,_cookie);
 			}
 		},
-		
+
 		/* Gets a feed URL, then subscribes to it
 		id:String - The id of the Feed
 		add:String - The Tag Id to add
@@ -733,7 +715,7 @@ var Application = function() {
 				s: id
 			}
 			add ? data['a'] = add : data['r'] = remove;
-			LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,Application._session.cookie());
+			LIB.httpr.postRequest(GRA.cons.URI_SUBSCRIPTION_EDIT(),Application.sentFeedEdit,data,_cookie);
 		},
 		
 		/* 
@@ -865,7 +847,7 @@ var Application = function() {
 				s: source
 			}
 			add ? data['a'] = add : data['r'] = remove;
-			LIB.httpr.postRequest(GRA.cons.URI_EDIT_TAG(),Application.sentEdit,data,Application._session.cookie());
+			LIB.httpr.postRequest(GRA.cons.URI_EDIT_TAG(),Application.sentEdit,data,_cookie);
 		},
 		
 		/* 
@@ -901,21 +883,29 @@ var Application = function() {
 				// prefItem
 				var prefItem = menu.addItemAt(new air.NativeMenuItem("Preferences"),2);
 				prefItem.keyEquivalent = ',';
-				air.trace(prefItem);
 				prefItem.addEventListener(air.Event.SELECT, function() {
 					Application._dialogue_prefs = new GRA.dialogue("general");
 					Application._dialogue_prefs.open();
 				});
+				// log out Item
+				var loItem = menu.addItemAt(new air.NativeMenuItem("Logout"),3);
+				loItem.addEventListener(air.Event.SELECT, Application.logout);
 				//separator
-				menu.addItemAt(new air.NativeMenuItem("",true),3);
+				menu.addItemAt(new air.NativeMenuItem("",true),4);
 			} else if (air.NativeWindow.supportsMenu) {
 				var menu = new air.NativeMenu();
 				var submenu = new air.NativeMenu();
-				submenu.addItem(new air.NativeMenuItem("Preferences"));
-				submenu.addEventListener(air.Event.SELECT, function() {
+				// prefs item
+				var prefItem = new air.NativeMenuItem("Preferences")
+				prefItem.addEventListener(air.Event.SELECT, function() {
 					Application._dialogue_prefs = new GRA.dialogue("general");
 					Application._dialogue_prefs.open();
 				});
+				submenu.addItem(prefItem);
+				// log out Item
+				var loItem = new air.NativeMenuItem("Preferences")
+				loItem.addEventListener(air.Event.SELECT, Application.logout);
+				submenu.addItem(loItem);
 				menu.addSubmenu(submenu,"ReadAir");
 				window.nativeWindow.menu = menu;
 			}
