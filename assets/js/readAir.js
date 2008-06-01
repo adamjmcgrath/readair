@@ -84,6 +84,13 @@ var Application = function() {
 */
 
 	return {
+	
+		// operation system
+		os: {
+			windows: false,
+			macos: false,
+			linux: false
+		},
 
 		/* 
 		------------------------------------------
@@ -91,6 +98,7 @@ var Application = function() {
 		------------------------------------------ */
 		
 		init: function() {
+			Application.osCheck();
 			
 			// Set HTML Elements
 			_feeds_wrap = $("#feeds-scroll-wrap");
@@ -276,6 +284,23 @@ var Application = function() {
 			var bool = GRA.encryptedstore.saveLogin() == "false";
 			if (bool) {
 				GRA.encryptedstore.removeLoginDetails();
+			}
+		},
+
+		osCheck: function() {
+			// operating system check
+			var osString = runtime.flash.system.Capabilities.os;
+			
+			if (osString.indexOf('Windows') != -1) {
+				Application.os.windows = true;
+			} else  if (osString == 'MacOS') {
+				Application.os.macos = true;
+			} else {				
+				Application.os.linux = true;
+			}
+			
+			if ( Application.os.windows ) {
+				$("body").addClass( "os_windows" );
 			}
 		},
 

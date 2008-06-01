@@ -32,6 +32,10 @@ body {
 	-webkit-user-select: none;
 }
 
+.os_windows {
+	font: 8pt Tahoma;
+}
+
 input {
 	cursor: text;
 	-webkit-user-select: text !important;
@@ -198,7 +202,7 @@ select {
 ------------------------------------------------------------------------------ */
 
 #loading {
-	padding: 20px;
+	padding: 7px;
 }
 
 #loading-bar-outer {
@@ -213,6 +217,11 @@ select {
 	background: url('../img/bg/loadingbar.gif') repeat-x;
 	height: 10px;
 	width: 100%;
+}
+
+#loading-title {
+	text-align: center;
+	padding-bottom: 5px;
 }
 
 .ui-tabs-hide { display: none; }
