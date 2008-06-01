@@ -244,17 +244,19 @@ var Application = function() {
 		------------------------------------------ */
 		itemClicked: function(e) {
 			// open links in browser
-			if (e.target.nodeName == "A") {
-				request = new air.URLRequest(e.target.href);
+			if (e.target.nodeName == "A" || $(e.target).parents("a").length > 0) {
+				request = new air.URLRequest(e.target.href || $(e.target).parents("a")[0].href);
 				air.navigateToURL(request);
-				e.preventDefault();
 			}
+			e.preventDefault();
 		},
 		
 		/* shortcuts:Void
 		e:Event - keypress event
 		------------------------------------------ */
 		shortcuts: function(e) {
+			// don't fire keyboard shortcuts when in input element
+			if (e.target.nodeName == "INPUT") {return true;}
 			switch (e.which) {
 			// j
 			case 106:
