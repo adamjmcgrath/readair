@@ -30,6 +30,10 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 		/* initialise
 		------------------------------------------ */
 		init: function() {
+			// operation system check
+			if ( Application.os.windows ) {
+				$("body").addClass( "os_windows" );
+			}
 			Dialogue.setupEventListeners();
 			Dialogue.setupForms();
 		},
