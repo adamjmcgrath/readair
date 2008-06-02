@@ -135,6 +135,8 @@ var Application = function() {
 		set up event listeners
 		------------------------------------------ */		
 		setupEventListeners: function() {
+			// update items area when resizing a window
+			$(window).resize(Layout.updateScrollBars);
 			
 			/* main app clicks */
 			// click on a feed
@@ -528,6 +530,9 @@ var Application = function() {
 			_items_wrap.html(Application._atom.HTML());
 			Application.hideLoading(true);
 			Layout.updateItemsScrollBar();
+			
+			// update stripes
+			$("#atom-table tr:even").addClass("stripe");
 		},
 		
 		/* Get More Items
@@ -548,6 +553,9 @@ var Application = function() {
 			_items_wrap.append(Application._atom.HTML());
 			Layout.updateItemsScrollBar();
 			$("#items-scroll-wrap").scroll(Layout.itemsScrollHandler);
+			
+			// update stripes
+			$("#atom-table tr:even").addClass("stripe");
 		},
 
 		/* 
@@ -590,6 +598,9 @@ var Application = function() {
 			_items_wrap.html(Application._atom.HTML());
 			Layout.updateItemsScrollBar();
 			Application.hideLoading(true);
+			
+			// update stripes
+			$("#atom-table tr:even").addClass("stripe");
 		},
 
 		/* 

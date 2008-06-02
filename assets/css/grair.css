@@ -394,13 +394,16 @@ body {
 }
 
 #items-table {
-	background: url(../img/bg/gridbody.png);
 	bottom: 9px;
 	overflow: hidden;
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
+
+	#items-table tr.stripe {
+		background-color: #f4f7fa;
+	}
 
 #items-table-inner {
 	border-collapse: collapse;
