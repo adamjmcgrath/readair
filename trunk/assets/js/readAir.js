@@ -519,16 +519,18 @@ var Application = function() {
 			// and tag read items count too
 			$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
 				// ugly, but works
-				var tmp = $(this).parent().parent().parent().parent();
+				var tmp = $(this).parent().parent().parent();
+				
+				// special check for non-tagged elements
+				if ( !tmp.is("div") ) {				
+					tmp = tmp.parent();
 
-				if ( !tmp.is("li") )
-					exit;
-
-				count = ($("span:first", tmp).text()) - reduce;
-				if (count > 0) {
-					$("span:first", tmp).fadeIn().text(count);
-				} else {
-					$("span:first", tmp).fadeOut().empty();
+					count = ($("span:first", tmp).text()) - reduce;
+					if (count > 0) {
+						$("span:first", tmp).fadeIn().text(count);
+					} else {
+						$("span:first", tmp).fadeOut().empty();
+					}
 				}
 			});
 		},
