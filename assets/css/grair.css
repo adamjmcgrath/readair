@@ -179,6 +179,7 @@ body {
 	
 	#feeds li div {
 		padding-left: 10px;
+		cursor: pointer;
 	}
 	
 	#feeds li div.loading {
@@ -209,6 +210,7 @@ body {
 		color: white;
 		font-weight: bold;
 		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+		cursor: none;
 	}
 	
 	#feeds li div.selected span {
@@ -401,15 +403,19 @@ body {
 	width: 100%;
 }
 
-	#items-table tr.stripe {
-		background-color: #f4f7fa;
-	}
-
 #items-table-inner {
 	border-collapse: collapse;
 	table-layout: fixed;
 	width: 100%;
 }
+	
+	#items-table-inner tr {
+		cursor: pointer;
+	}
+
+	#items-table-inner tr.stripe {
+		background-color: #f4f7fa;
+	}
 	
 	#items-table-inner tr.selected {
 		background: #6897DA;

@@ -14,6 +14,11 @@ var Application = function() {
 -----------------------------------------------------------
 */
 
+	/* tray icon
+	------------------------------------------ */
+	var _tray = null;
+	var _trayMenu = null;
+
 	/* authentication objects 
 	------------------------------------------ */
 	
@@ -98,6 +103,7 @@ var Application = function() {
 		------------------------------------------ */
 		
 		init: function() {
+			// operation system
 			Application.osCheck();
 			
 			// Set HTML Elements
@@ -119,13 +125,73 @@ var Application = function() {
 			// Do preferences menu
 			Application.doPrefsMenu();
 			// Check for updates
-			GRA.update.init();			
+			GRA.update.init();	
 			// Initiate the layout
 			Layout.init();
 			// Set up the event listeners
 			Application.setupEventListeners();
+			// tray
+			Application.initTray();
 			// Check for email/password in the encrypted store
 			Application.checkLogin();
+		},
+		
+		/*
+		------------------------------------------
+ 		tray icon creation
+		------------------------------------------ */
+		
+		trayIconLoadComplete: function(event) {
+			air.NativeApplication.nativeApplication.icon.bitmaps = new runtime.Array(event.target.content.bitmapData);
+		},
+		
+		initTray: function() {
+			_tray = new air.Loader();
+			_trayMenu = new air.NativeMenu();
+			
+			var traySupported = false;
+			
+		    if (air.NativeApplication.supportsDockIcon) {
+				traySupported = true;
+		        _tray.contentLoaderInfo.addEventListener(air.Event.COMPLETE, Application.trayIconLoadComplete);
+		        _tray.load(new air.URLRequest("/icon/ReadAir_128.png"));
+		        air.NativeApplication.nativeApplication.icon.menu = _trayMenu;
+		    }
+		
+		    if (air.NativeApplication.supportsSystemTrayIcon) {
+				traySupported = true;
+		        _tray.contentLoaderInfo.addEventListener(air.Event.COMPLETE, Application.trayIconLoadComplete);
+		        _tray.load(new air.URLRequest("/icon/ReadAir_16.png"));
+		        air.NativeApplication.nativeApplication.icon.tooltip = "ReadAIR";
+		        air.NativeApplication.nativeApplication.icon.menu = _trayMenu;
+		    }
+			
+			if ( traySupported ) {
+				var separator = new air.NativeMenuItem("A", true);
+			
+				// preferences item
+				var preferencesItem = _trayMenu.addItem(new air.NativeMenuItem("Preferences"));
+				
+				preferencesItem.addEventListener(air.Event.SELECT,function(event){
+					Application._dialogue_prefs = new GRA.dialogue("general");
+					Application._dialogue_prefs.open();
+			    });
+				
+				// -- separator
+				_trayMenu.addItem(separator);
+				
+				var logoutItem = _trayMenu.addItem(new air.NativeMenuItem("Logout"));
+				
+				logoutItem.addEventListener(air.Event.SELECT, Application.logout);
+				
+				// exit item
+				var exitItem = _trayMenu.addItem(new air.NativeMenuItem("Exit"));
+				
+			    exitItem.addEventListener(air.Event.SELECT,function(event){
+					air.NativeApplication.nativeApplication.icon.bitmaps = [];
+					air.NativeApplication.nativeApplication.exit();
+			    });
+			}
 		},
 		
 		/* 
@@ -291,7 +357,7 @@ var Application = function() {
 
 		osCheck: function() {
 			// operating system check
-			var osString = runtime.flash.system.Capabilities.os;
+			var osString = air.Capabilities.os;
 			
 			if (osString.indexOf('Windows') != -1) {
 				Application.os.windows = true;
@@ -427,9 +493,9 @@ var Application = function() {
 				// populate counts
 				$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
 					if (count > 0) {
-						$("span:first", this).show().text(count);
+						$("span:first", this).fadeIn().text(count);
 					} else {
-						$("span:first", this).hide().empty();
+						$("span:first", this).fadeOut().empty();
 					}
 				});
 			});
@@ -440,13 +506,29 @@ var Application = function() {
 		reduce:Number - the number to reduce the count by default 1
 		------------------------------------------ */
 		setUnreadCountById: function(id,reduce) {
-			if (!reduce) {reduce = 1};
+			if (!reduce) { reduce = 1 };
 			$("div[@href='" + id + "'], #reading-list", _feeds_wrap).each(function(i) {
 				count = ($("span:first", this).text()) - reduce;
 				if (count > 0) {
-					$("span:first", this).show().text(count);
+					$("span:first", this).fadeIn().text(count);
 				} else {
-					$("span:first", this).hide().empty();
+					$("span:first", this).fadeOut().empty();
+				}
+			});
+			
+			// and tag read items count too
+			$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
+				// ugly, but works
+				var tmp = $(this).parent().parent().parent().parent();
+
+				if ( !tmp.is("li") )
+					exit;
+
+				count = ($("span:first", tmp).text()) - reduce;
+				if (count > 0) {
+					$("span:first", tmp).fadeIn().text(count);
+				} else {
+					$("span:first", tmp).fadeOut().empty();
 				}
 			});
 		},
@@ -941,7 +1023,7 @@ var Application = function() {
 				});
 				submenu.addItem(prefItem);
 				// log out Item
-				var loItem = new air.NativeMenuItem("Preferences")
+				var loItem = new air.NativeMenuItem("Logout")
 				loItem.addEventListener(air.Event.SELECT, Application.logout);
 				submenu.addItem(loItem);
 				menu.addSubmenu(submenu,"ReadAir");
