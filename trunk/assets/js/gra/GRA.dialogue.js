@@ -96,6 +96,6 @@ GRA.dialogue.prototype.general = {
 
 GRA.dialogue.prototype.account = {
 	url: "app:/dialogue.html#account",
-	height: 240,
+	height: 280,
 	width: 420
 }
