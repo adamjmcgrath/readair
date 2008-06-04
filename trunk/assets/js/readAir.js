@@ -212,6 +212,10 @@ var Application = function() {
 			$("#theme", "html head").attr( { "href" : "assets/css/themes/" + style + ".css" } );
 		},
 		
+		statusText: function(text) {
+			$("div", "#status-bar").html(text);
+		},
+		
 		/* 
 		------------------------------------------
  		event listeners
@@ -918,6 +922,15 @@ var Application = function() {
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
 			Application.readItem(elm,atomEntry);	
 			_item_wrap.html(atomEntry.HTML());
+			
+			$("a", _item_wrap)
+					.mouseover( function() {
+						Application.statusText( $(this).attr( "href" ) );
+					} )
+					.mouseout( function() {
+						Application.statusText( "" );
+					} );
+			
 			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();
 		},

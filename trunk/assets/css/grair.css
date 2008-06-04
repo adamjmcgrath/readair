@@ -271,12 +271,24 @@ body {
 /* feeds-bar
 --------------------------------------- */
 
-#feeds-bar {
+.bar {
 	background: url(../img/bg/sidemenu.png) repeat-x 0 0;
 	border-top: 1px solid #CECECE;
+	height: 22px;
+}
+
+#status-bar {
+	bottom: 0;
+	width: 100%;
+}
+
+	#status-bar div {
+		padding: 4px;
+	}
+
+#feeds-bar {
 	bottom: 0;
 	left: 0;
-	height: 22px;
 	position: absolute;
 	right: 0;
 }
@@ -461,6 +473,7 @@ body {
 #item-outer {
 	display: table-row;
 	width: 100%;
+	height: 100%;
 }
 
 #item {
