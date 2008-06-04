@@ -128,8 +128,10 @@ var Application = function() {
 			Layout.init();
 			// Set up the event listeners
 			Application.setupEventListeners();
-			// tray
+			// Tray
 			Application.initTray();
+			// Set theme css
+			Application.updateTheme();
 			// Check for email/password in the encrypted store
 			Application.checkLogin();
 		},
@@ -190,6 +192,24 @@ var Application = function() {
 					air.NativeApplication.nativeApplication.exit();
 			    });
 			}
+		},
+		
+		/* 
+		------------------------------------------
+ 		themes
+		------------------------------------------ */
+		updateTheme: function() {
+			var style = GRA.encryptedstore.theme();
+			
+			if ( style == "" )
+			{
+				if ( Application.os.windows )
+					style = "windows";
+				else
+					style = "macos";
+			}
+			
+			$("#theme", "html head").attr( { "href" : "assets/css/themes/" + style + ".css" } );
 		},
 		
 		/* 
@@ -363,10 +383,6 @@ var Application = function() {
 				Application.os.macos = true;
 			} else {				
 				Application.os.linux = true;
-			}
-			
-			if ( Application.os.windows ) {
-				$("body").addClass( "os_windows" );
 			}
 		},
 

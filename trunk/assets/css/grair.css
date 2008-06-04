@@ -21,10 +21,6 @@ body {
 	-webkit-user-select: none;
 }
 
-.os_windows {
-	font: 8pt Tahoma;
-}
-
 #item {
 	cursor: text;
 	-webkit-user-select: text !important;

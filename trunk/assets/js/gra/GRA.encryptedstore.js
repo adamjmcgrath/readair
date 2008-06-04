@@ -35,6 +35,8 @@ GRA.encryptedstore = {
 	_UPDATE: "update",
 	// how often to refresh feeds (0/5/10/20/30)
 	_REFRESH: "refresh",
+	// theme (string)
+	_THEME: "theme",
 	
 	/*
 	getItem:String
@@ -76,11 +78,19 @@ GRA.encryptedstore = {
 	},
 	
 	/*
+	theme:Number
+	------------------------------------------ */
+	theme: function() {
+		return String(this.getItem(this._THEME));
+	},
+	
+	/*
 	setPrefs:Void
 	------------------------------------------ */
-	setPrefs: function(update,refresh) {
+	setPrefs: function(update,refresh,theme) {
 		this.setItem(this._UPDATE,String(update));
 		this.setItem(this._REFRESH,refresh);
+		this.setItem(this._THEME,theme);
 	},
 	
 	/* 
