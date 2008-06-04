@@ -122,8 +122,6 @@ var Application = function() {
 			_starred_label = $("#starred-items");
 			_shared_label = $("#shared-items");			
 			
-			// Do preferences menu
-			Application.doPrefsMenu();
 			// Check for updates
 			GRA.update.init();	
 			// Initiate the layout
@@ -989,48 +987,6 @@ var Application = function() {
 		sentFeedEdit: function(e) {
 			Application.getFeeds();
 			air.trace(e.target.data);
-		},
-		
-		/* 
-		------------------------------------------
-		Preferences
-		
-		do Preferences Menu
-		------------------------------------------ */
-		doPrefsMenu: function() {
-			if (air.NativeApplication.supportsMenu) {
-				var menu = air.NativeApplication.nativeApplication.menu.getItemAt(0).submenu;
-				// separator
-				menu.addItemAt(new air.NativeMenuItem("",true),1);
-				// prefItem
-				var prefItem = menu.addItemAt(new air.NativeMenuItem("Preferences"),2);
-				prefItem.keyEquivalent = ',';
-				prefItem.addEventListener(air.Event.SELECT, function() {
-					Application._dialogue_prefs = new GRA.dialogue("general");
-					Application._dialogue_prefs.open();
-				});
-				// log out Item
-				var loItem = menu.addItemAt(new air.NativeMenuItem("Logout"),3);
-				loItem.addEventListener(air.Event.SELECT, Application.logout);
-				//separator
-				menu.addItemAt(new air.NativeMenuItem("",true),4);
-			} else if (air.NativeWindow.supportsMenu) {
-				var menu = new air.NativeMenu();
-				var submenu = new air.NativeMenu();
-				// prefs item
-				var prefItem = new air.NativeMenuItem("Preferences")
-				prefItem.addEventListener(air.Event.SELECT, function() {
-					Application._dialogue_prefs = new GRA.dialogue("general");
-					Application._dialogue_prefs.open();
-				});
-				submenu.addItem(prefItem);
-				// log out Item
-				var loItem = new air.NativeMenuItem("Logout")
-				loItem.addEventListener(air.Event.SELECT, Application.logout);
-				submenu.addItem(loItem);
-				menu.addSubmenu(submenu,"ReadAir");
-				window.nativeWindow.menu = menu;
-			}
 		},
 		
 		/* 

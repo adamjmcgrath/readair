@@ -16,6 +16,7 @@ GRA.dialogue = function(type) {
 	var bounds = new air.Rectangle(this._getXBounds(this._type.width),this._getYBounds(this._type.height),this._type.width,this._type.height);
 	this._loader = air.HTMLLoader.createRootWindow(true, options, false, bounds);
 	this._nativewindow = this._loader.window.nativeWindow;
+	this._nativewindow.title = this._type.title;
 }
 
 /* authentication methods/properties 
@@ -84,18 +85,21 @@ GRA.dialogue.prototype = {
 
 GRA.dialogue.prototype.loading = {
 	url: "app:/dialogue.html#loading",
+	title: "",
 	height: 70,
 	width: 300
 }
 
 GRA.dialogue.prototype.general = {
 	url: "app:/dialogue.html#general",
+	title: "Preferences",
 	height: 240,
 	width: 420
 }
 
 GRA.dialogue.prototype.account = {
 	url: "app:/dialogue.html#account",
+	title: "Account information",
 	height: 280,
 	width: 420
 }
