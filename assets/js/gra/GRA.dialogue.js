@@ -93,7 +93,7 @@ GRA.dialogue.prototype.loading = {
 GRA.dialogue.prototype.general = {
 	url: "app:/dialogue.html#general",
 	title: "Preferences",
-	height: 240,
+	height: 285,
 	width: 420
 }
 

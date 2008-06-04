@@ -16,6 +16,7 @@ var Application = theOpener.Application;
 
 var refresh = GRA.encryptedstore.getItem("refresh");
 var update = GRA.encryptedstore.getItem("update");
+var theme = GRA.encryptedstore.getItem("theme");
 var email = GRA.encryptedstore.getItem("email");
 var passwd = GRA.encryptedstore.getItem("passwd");
 var remember = GRA.encryptedstore.getItem("rememeber");
@@ -30,12 +31,13 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 		/* initialise
 		------------------------------------------ */
 		init: function() {
-			// operation system check
-			if ( Application.os.windows ) {
-				$("body").addClass( "os_windows" );
-			}
 			Dialogue.setupEventListeners();
 			Dialogue.setupForms();
+			Dialogue.updateTheme();
+		},
+		
+		updateTheme: function() {		
+			$("#theme", "html head").attr( { "href" : "assets/css/themes/" + theme + ".css" } );
 		},
 		
 		
@@ -43,7 +45,8 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 		------------------------------------------ */
 		setupEventListeners: function() {
 			$("#prefs-form").submit(Dialogue.setPrefs);
-			$("button.cancel").click(function() {window.nativeWindow.close()});
+			// isn't needed (?)
+			//$("button.cancel").click(function() {window.nativeWindow.close()});
 		},
 		
 		/* setupForms:Void
@@ -52,6 +55,8 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 			if (GRA.encryptedstore.savedLoginDetails()) {	
 				$("#refreshtime").val(refresh);
 				$("#checkatstart").val(update);
+				// val isn't working with letters =/
+				$("option[@value='" + theme + "']").attr( { "selected" : "selected" } );
 				$("#email").val(email);
 				$("#passwd").val(passwd);
 				$("#rememeber").val(remember);
@@ -63,8 +68,9 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 		------------------------------------------ */
 		setPrefs: function(e) {
 			e.preventDefault();
+			GRA.encryptedstore.setPrefs(e.target.checkatstart.value, e.target.refreshtime.value, e.target.theme.value);
+			Application.updateTheme();			
 			GRA.encryptedstore.setLoginDetails(e.target.email.value, e.target.passwd.value, e.target.remember.checked);
-			GRA.encryptedstore.setPrefs(e.target.checkatstart.value, e.target.refreshtime.value);
 			var login = new DLG.login(e.target.email.value,e.target.passwd.value);
 			LIB.httpr.postRequest(GRA.cons.URI_LOGIN(),Dialogue.checkLogin,login.data());	
 		},

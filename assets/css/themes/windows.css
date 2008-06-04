@@ -1,0 +1,7 @@
+body, select, input, option {
+	font: 8pt Tahoma !important;
+}
+
+input {
+	padding: 3px;
+}
