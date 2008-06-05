@@ -5,3 +5,11 @@ body, select, input, option {
 input {
 	padding: 3px;
 }
+
+.bar {
+	background: url(/assets/img/themes/windows/back_bar.png) repeat-x 0 0;
+}
+
+.ifolder {
+	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
+}
