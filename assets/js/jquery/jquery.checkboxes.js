@@ -11,15 +11,11 @@
 **/
 
 jQuery.fn.checkbox = function(options) {
-	/* IE < 7.0 background flicker fix */
-	if ( jQuery.browser.msie && (parseFloat(jQuery.browser.version) < 7) )
-	{
-		document.execCommand('BackgroundImageCache', false, true);	
-	}
+
 	/* Default settings */
 	var settings = {
 		cls: 'jquery-checkbox',  /* checkbox  */
-		empty: '/assets/img/osx/empty.png'  /* checkbox  */
+		empty: '/assets/img/empty.png'  /* checkbox  */
 	};
 	
 	/* Processing settings */

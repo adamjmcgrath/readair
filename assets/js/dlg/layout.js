@@ -8,7 +8,7 @@ DLG.Layout = {
 	init: function() {
 		//$("ul.select").jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
 		$("ul#views").tabs();
-		$("input:checkbox").checkbox({cls:'jquery-safari-checkbox'});
+		$("input:checkbox").checkbox();
 		DLG.Layout.doTabs();
 	},
 	doTabs: function() {
