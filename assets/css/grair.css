@@ -29,8 +29,6 @@ body {
 --------------------------------------- */
 
 #menubar {
-	background: url(../img/bg/menubar.png) repeat-x bottom left;
-	border-bottom: 1px solid #515151;
 	height: 49px;
 	left: 0;
 	position: fixed;
@@ -44,7 +42,8 @@ body {
 		bottom: 6px;
 		cursor: pointer;
 		height: 10px;
-		padding-top: 26px;
+		padding-top: 27px;
+		padding-bottom: 1px;
 		position: absolute;
 		text-align: center;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -143,7 +142,6 @@ body {
 }
 
 #feeds-inner {
-	background: #DEE4EA;
 	bottom: 21px;
 	overflow: hidden;
 	position: absolute;
