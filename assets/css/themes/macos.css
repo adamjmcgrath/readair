@@ -1,7 +1,27 @@
 .bar {
 	background: url(/assets/img/themes/macos/back_bar.png) repeat-x 0 0;
+	border-top: 1px solid #CECECE;
 }
 
 .ifolder {
-	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
+	background: url(/assets/img/themes/macos/icon_folder.png) no-repeat;
+}
+
+#status-bar {
+	margin-bottom: -1px;
+}
+
+#items-table-head {
+	background: url(/assets/img/themes/macos/back_grid_title.png) repeat-x 0 0;
+	border-bottom: 1px solid #B4B4B4;
+	height: 15px;
+	padding-top: 2px;
+}
+
+#items-table-inner tr.stripe {
+	background-color: #f4f7fa;
+}
+
+#items-table-inner tr.selected {
+	background: #6897DA;
 }

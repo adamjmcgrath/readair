@@ -43,7 +43,7 @@ var Layout = function() {
 			feeds_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
 			var tagScrollBar = $(".jScrollPaneContainer:first", feeds_resize);
 			tagScrollBar.css({
-			  height: (feeds_resize.height() - 23) + "px",
+			  height: (feeds_resize.height() - 21) + "px",
 			  width: (feeds_resize.width()) + "px"
 			})
 		},
@@ -52,7 +52,7 @@ var Layout = function() {
 			items_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0, animateTo: false});
 			var itemsScrollBar = $(".jScrollPaneContainer:first", items_resize);
 			itemsScrollBar.css({
-				height: (items_resize.height() - 9) + "px",
+				height: (items_resize.height() - 12) + "px",
 				width: (items_resize.width()) + "px"
 			})
 			items_scroll.scroll(Application.itemsScrollHandler);

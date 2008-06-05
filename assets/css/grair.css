@@ -145,7 +145,7 @@ body {
 
 #feeds-inner {
 	background: #DEE4EA;
-	bottom: 23px;
+	bottom: 21px;
 	overflow: hidden;
 	position: absolute;
 	top: 0;
@@ -272,10 +272,9 @@ body {
 --------------------------------------- */
 
 .bar {
-	height: 22px;
-	border-top: 1px solid #CECECE;
+	height: 20px;
 }
-
+	
 #status-bar {
 	bottom: 0;
 	width: 100%;
@@ -363,10 +362,6 @@ body {
 --------------------------------------- */
 
 #items-table-head {
-	background: url(../img/bg/gridhead.png) repeat-x 0 0;
-	border-bottom: 1px solid #B4B4B4;
-	height: 15px;
-	line-height: 15px;
 	position: relative;
 }
 
@@ -419,13 +414,8 @@ body {
 	#items-table-inner tr {
 		cursor: pointer;
 	}
-
-	#items-table-inner tr.stripe {
-		background-color: #f4f7fa;
-	}
 	
 	#items-table-inner tr.selected {
-		background: #6897DA;
 		color: white;
 	}
 	
