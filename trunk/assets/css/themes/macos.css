@@ -1,11 +1,11 @@
-body {
-	font: 11px/1 "Lucida Grande", Arial;
-}
-
 #item-inner-iframe #head {
 	font-family: "Lucida Grande", Arial;
 }
-	
+
+body.dialogue {
+	background: #e8e8e8;
+}
+
 .bar {
 	background: url(/assets/img/themes/macos/back_bar.png) repeat-x 0 0;
 	border-top: 1px solid #CECECE;
@@ -17,6 +17,10 @@ body {
 
 #status-bar {
 	margin-bottom: -1px;
+}
+
+#feeds-inner {
+	background: #DEE4EA;
 }
 
 #items-table-head {
@@ -32,6 +36,11 @@ body {
 
 #items-table-inner tr.selected {
 	background: #6897DA;
+}
+
+#menubar {
+	background: url(/assets/img/themes/macos/menubar.png) repeat-x bottom left;
+	border-bottom: 1px solid #515151;
 }
 
 /* forms 

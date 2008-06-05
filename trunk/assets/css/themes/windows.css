@@ -2,6 +2,10 @@ body, select, input, option {
 	font: 8pt Tahoma !important;
 }
 
+body.dialogue {
+	background: #ece9d8;
+}
+
 #item-inner-iframe #head {
 	font-family: Tahoma;
 }
@@ -33,6 +37,11 @@ input {
 	background: #316ac5;
 }
 
+#menubar {
+	background: url(/assets/img/themes/windows/menubar.png) repeat-x bottom left;
+	border-bottom: 1px solid #7f9db9;
+}
+
 /* forms 
 --------------------------------------- */
 
@@ -52,7 +61,7 @@ button:hover, button:focus, button:active, button.on {
 
 input {
 	background-color: white;
-	border: 1px solid black;
+	border: 1px solid #7f9db9;
 }
 
 .jquery-checkbox {
