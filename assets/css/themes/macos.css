@@ -1,3 +1,11 @@
+body {
+	font: 11px/1 "Lucida Grande", Arial;
+}
+
+#item-inner-iframe #head {
+	font-family: "Lucida Grande", Arial;
+}
+	
 .bar {
 	background: url(/assets/img/themes/macos/back_bar.png) repeat-x 0 0;
 	border-top: 1px solid #CECECE;
@@ -24,4 +32,21 @@
 
 #items-table-inner tr.selected {
 	background: #6897DA;
+}
+
+/* forms 
+--------------------------------------- */
+
+button {
+	background-image: url(/assets/img/themes/macos/button_off_left.png), url(/assets/img/themes/macos/button_off_right.png), url(/assets/img/themes/macos/button_off_middle.png);
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: top left, top right, top left;
+	border: 0;
+	font-weight: normal;
+	line-height: 20px;
+	padding: 0 20px 2px 20px;	
+}
+
+button:hover, button:focus, button:active, button.on {
+	background-image: url(/assets/img/themes/macos/button_on_left.png), url(/assets/img/themes/macos/button_on_right.png), url(/assets/img/themes/macos/button_on_middle.png);
 }

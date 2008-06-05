@@ -3,20 +3,6 @@
 /* forms 
 --------------------------------------- */
 
-button {
-	background-image: url(../img/osx/btn-off-l.png), url(../img/osx/btn-off-r.png), url(../img/osx/btn-off-m.png);
-	background-repeat: no-repeat, no-repeat, repeat-x;
-	background-position: top left, top right, top left;
-	border: 0;
-	font-weight: normal;
-	line-height: 20px;
-	padding: 0 20px 2px 20px;	
-}
-
-button:hover, button:focus, button:active, button.on {
-	background-image: url(../img/osx/btn-on-l.png), url(../img/osx/btn-on-r.png), url(../img/osx/btn-on-m.png);
-}
-
 select {
 	line-height: 18px;
 }
@@ -35,10 +21,6 @@ input {
 select:focus {
 	outline: none;
 	outline-color: red;
-}
-
-option {
-	width: red;
 }
 
 span {

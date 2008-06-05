@@ -17,7 +17,6 @@ ul {
 
 body {
 	cursor: default;
-	font: 11px/1 "Lucida Grande", Arial;
 	-webkit-user-select: none;
 }
 
@@ -281,7 +280,7 @@ body {
 }
 
 	#status-bar div {
-		padding: 4px;
+		padding: 3px;
 	}
 
 #feeds-bar {
