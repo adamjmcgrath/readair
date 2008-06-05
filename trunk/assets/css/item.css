@@ -14,44 +14,40 @@
 /* head
 ---------------------------------------------- */
 
-#item-inner-iframe #head {
-	font-family: "Lucida Grande", Arial;
+#item-inner-iframe #head a {
+	text-decoration: none;
 }
 
-	#item-inner-iframe #head a {
-		text-decoration: none;
+#item-inner-iframe #head h1 {
+	background: #DCDCDC url(../img/bg/detailhead.png) repeat-x top left;
+	border-bottom: 1px solid #707070;
+	font-size: 21px;
+	padding: 15px 20px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+#item-inner-iframe #head h1 a, #item-inner-iframe #head h2 a {
+	cursor: pointer;
+}
+
+#item-inner-iframe #head h2 {
+	background: #F2F2F2;
+	color: #B5B5B5;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 16px;
+	padding: 10px 20px;
+}
+
+	#item-inner-iframe #head h2 a {
+		color: #515151;
+		font-weight: bold;
 	}
 
-	#item-inner-iframe #head h1 {
-		background: #DCDCDC url(../img/bg/detailhead.png) repeat-x top left;
-		border-bottom: 1px solid #707070;
-		font-size: 21px;
-		padding: 15px 20px;
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	#item-inner-iframe #head h2 img {
+		margin-right: 5px;
+		vertical-align: middle;
 	}
-	
-	#item-inner-iframe #head h1 a, #item-inner-iframe #head h2 a {
-		cursor: pointer;
-	}
-
-	#item-inner-iframe #head h2 {
-		background: #F2F2F2;
-		color: #B5B5B5;
-		font-size: 12px;
-		font-weight: normal;
-		line-height: 16px;
-		padding: 10px 20px;
-	}
-	
-		#item-inner-iframe #head h2 a {
-			color: #515151;
-			font-weight: bold;
-		}
-	
-		#item-inner-iframe #head h2 img {
-			margin-right: 5px;
-			vertical-align: middle;
-		}
 
 /* content 
 ---------------------------------------------- */

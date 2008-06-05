@@ -2,6 +2,10 @@ body, select, input, option {
 	font: 8pt Tahoma !important;
 }
 
+#item-inner-iframe #head {
+	font-family: Tahoma;
+}
+
 input {
 	padding: 3px;
 }
@@ -27,4 +31,21 @@ input {
 
 #items-table-inner tr.selected {
 	background: #316ac5;
+}
+
+/* forms 
+--------------------------------------- */
+
+button {
+	background-image: url(/assets/img/themes/windows/button_off_left.png), url(/assets/img/themes/windows/button_off_right.png), url(/assets/img/themes/windows/button_off_middle.png);
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: top left, top right, top left;
+	border: 0;
+	font-weight: normal;
+	line-height: 20px;
+	padding: 0 20px 2px 20px;	
+}
+
+button:hover, button:focus, button:active, button.on {
+	background-image: url(/assets/img/themes/windows/button_on_left.png), url(/assets/img/themes/windows/button_on_right.png), url(/assets/img/themes/windows/button_on_middle.png);
 }
