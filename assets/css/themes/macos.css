@@ -98,3 +98,30 @@ select {
 	.jquery-checkbox img{
 		background: transparent url(/assets/img/themes/macos/checkbox.png) no-repeat;
 	}
+	
+/* scrollers
+--------------------------------------- */
+	
+.jScrollPaneTrack {
+	background: url(/assets/img/themes/macos/scrollbar_track.gif) repeat-y;
+}
+
+.jScrollPaneDrag {
+	background: url(/assets/img/themes/macos/scrollbar_drag_middle.gif) repeat-y;
+}
+
+.jScrollPaneDragTop {
+	background: url(/assets/img/themes/macos/scrollbar_drag_top.gif) no-repeat;
+}
+
+.jScrollPaneDragBottom {
+	background: url(/assets/img/themes/macos/scrollbar_drag_bottom.gif) no-repeat;
+}
+
+a.jScrollArrowUp {
+	background: url(/assets/img/themes/macos/scrollbar_arrow_up.png) no-repeat 0 -30px;
+}
+
+a.jScrollArrowDown {
+	background: url(/assets/img/themes/macos/scrollbar_arrow_down.png) no-repeat 0 -30px;
+}

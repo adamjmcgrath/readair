@@ -40,7 +40,7 @@ var Layout = function() {
 			Layout.updateItemScrollBar();
 		},
 		updateTagScrollBar: function() {
-			feeds_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
+			feeds_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 17, scrollbarMargin: 0});
 			var tagScrollBar = $(".jScrollPaneContainer:first", feeds_resize);
 			tagScrollBar.css({
 			  height: (feeds_resize.height() - 21) + "px",
@@ -49,7 +49,7 @@ var Layout = function() {
 		},
 		updateItemsScrollBar: function() {
 			items_scroll.unbind("scroll");
-			items_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0, animateTo: false});
+			items_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 17, scrollbarMargin: 0, animateTo: false});
 			var itemsScrollBar = $(".jScrollPaneContainer:first", items_resize);
 			itemsScrollBar.css({
 				height: (items_resize.height() - 12) + "px",
@@ -58,7 +58,7 @@ var Layout = function() {
 			items_scroll.scroll(Application.itemsScrollHandler);
 		},
 		updateItemScrollBar: function() {
-			item_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16, scrollbarMargin: 0});
+			item_scroll.jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 17, scrollbarMargin: 0});
 			var itemScrollBar = $(".jScrollPaneContainer:eq(0)", item_resize);
 			itemScrollBar.css({
 			  height: (item_resize.height()) + "px",
