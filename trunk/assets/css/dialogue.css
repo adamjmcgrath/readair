@@ -27,7 +27,6 @@ a img {
 body {
 	background: #e8e8e8;
 	cursor: default;
-	font: 11px/1 "Lucida Grande", Arial;
 	padding-bottom: 30px;
 	-webkit-user-select: none;
 }
@@ -72,29 +71,6 @@ table.form {
 	width: 100%;
 }
 
-select {
-	width: 100%;
-}
-
-.select-wrap {
-	background: white;
-	border: 1px solid #999;
-}
-
-.select {
-	height: 100px;
-	line-height: 14px;
-	overflow: hidden;
-	padding-bottom: 3px;
-	text-indent: 2px;
-	width: 100%;
-}
-
-.select .on {
-	background: #6897DA;
-	color: white;
-}
-
 .edit-buttons {
 	height: 20px;
 	margin-top: 3px;
@@ -127,6 +103,49 @@ select {
 
 .buttons button:first-child {
 	margin-right: 5px;
+}
+
+/* checkboxes
+--------------------------------------- */
+
+.jquery-checkbox {
+	display: inline;
+}
+
+.jquery-checkbox-box {
+	display: inline; 
+	font-size: 16px; 
+	line-height: 16px; 
+	cursor: pointer; 
+	cursor: hand;
+}
+
+.jquery-checkbox .mark {
+	display: inline;
+}
+
+.jquery-checkbox img {
+	background-position: 0px 0px;
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+}
+
+.jquery-checkbox-hover img{
+	background-position: -16px 0px;
+}
+.jquery-checkbox-checked .jquery-checkbox img{
+	background-position: 0px -16px;
+}
+.jquery-checkbox-checked .jquery-checkbox-hover img {
+	background-position: -16px -16px;
+}
+
+.jquery-checkbox-disabled img{
+	background-position: 0px -32px;
+}
+.jquery-checkbox-checked .jquery-checkbox-disabled img{
+	background-position: 0px -48px;
 }
 
 /* prefs

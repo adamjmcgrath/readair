@@ -49,3 +49,16 @@ button {
 button:hover, button:focus, button:active, button.on {
 	background-image: url(/assets/img/themes/windows/button_on_left.png), url(/assets/img/themes/windows/button_on_right.png), url(/assets/img/themes/windows/button_on_middle.png);
 }
+
+input {
+	background-color: white;
+	border: 1px solid black;
+}
+
+.jquery-checkbox {
+	margin-left: -2px;
+}
+
+	.jquery-checkbox img{
+		background: transparent url(/assets/img/themes/windows/checkbox.png) no-repeat;
+	}

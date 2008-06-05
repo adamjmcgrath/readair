@@ -50,3 +50,51 @@ button {
 button:hover, button:focus, button:active, button.on {
 	background-image: url(/assets/img/themes/macos/button_on_left.png), url(/assets/img/themes/macos/button_on_right.png), url(/assets/img/themes/macos/button_on_middle.png);
 }
+
+input {
+	background-image: url(/assets/img/themes/macos/input_right.png), url(/assets/img/themes/macos/input_middle.png);
+	background-repeat: no-repeat, repeat-x;
+	background-position: top right, top left;
+	border-bottom: 1px solid #DADADA;
+	border-left: 1px solid #B4B4B4;
+	border-right: 1px solid #B4B4B4;
+	border-top: 1px solid #727272;
+	line-height: 18px;
+}
+
+select {
+	width: 100%;
+	line-height: 18px;
+}
+
+	select:focus {
+		outline: none;
+		outline-color: red;
+	}
+
+.select-wrap {
+	background: white;
+	border: 1px solid #999;
+}
+
+.select {
+	height: 100px;
+	line-height: 14px;
+	overflow: hidden;
+	padding-bottom: 3px;
+	text-indent: 2px;
+	width: 100%;
+}
+
+	.select .on {
+		background: #6897DA;
+		color: white;
+	}
+	
+.jquery-checkbox {
+	margin-left: -1px;
+}
+	
+	.jquery-checkbox img{
+		background: transparent url(/assets/img/themes/macos/checkbox.png) no-repeat;
+	}

@@ -213,7 +213,12 @@ var Application = function() {
 		},
 		
 		statusText: function(text) {
-			$("div", "#status-bar").html(text);
+			$("div", "#status-bar").fadeOut( "fast", function() {
+				if ( text != '' ) 
+					$(this)
+						.html(text)
+						.fadeIn( "fast" );
+			} );
 		},
 		
 		/* 
