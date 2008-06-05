@@ -8,8 +8,23 @@ input {
 
 .bar {
 	background: url(/assets/img/themes/windows/back_bar.png) repeat-x 0 0;
+	border-top: 1px solid #959385;
 }
 
 .ifolder {
 	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
+}
+
+#items-table-head {
+	background: #ebeadb url(/assets/img/themes/windows/back_grid_title.png) repeat-x bottom;
+	border-top: 1px solid #ebeadb;
+	height: 17px;
+}
+
+#items-table-inner tr.stripe {
+	background-color: #fcfcfc;
+}
+
+#items-table-inner tr.selected {
+	background: #316ac5;
 }
