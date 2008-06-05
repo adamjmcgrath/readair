@@ -272,9 +272,8 @@ body {
 --------------------------------------- */
 
 .bar {
-	background: url(../img/bg/sidemenu.png) repeat-x 0 0;
-	border-top: 1px solid #CECECE;
 	height: 22px;
+	border-top: 1px solid #CECECE;
 }
 
 #status-bar {

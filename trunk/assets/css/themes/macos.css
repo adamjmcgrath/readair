@@ -1,0 +1,7 @@
+.bar {
+	background: url(/assets/img/themes/macos/back_bar.png) repeat-x 0 0;
+}
+
+.ifolder {
+	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
+}
