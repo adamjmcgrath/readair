@@ -666,7 +666,6 @@ var Application = function() {
 			_items_wrap.append(Application._atom.HTML());
 			Layout.updateItemsScrollBar();
 			$("#items-scroll-wrap").scroll(Layout.itemsScrollHandler);
-			
 			// update stripes
 			$("#atom-table tr:even").addClass("stripe");
 		},
@@ -880,9 +879,11 @@ var Application = function() {
 			var height = e.target.scrollHeight;
 			var amount = e.target.offsetTop - e.target.parentNode.offsetHeight;
 			// if there's no items left
-			if (height + amount == 0) {
+			// weird behavior with scroll height?
+			//if (height + amount == 0) {
+			if (height + amount < 5) {
 				$(e.target).unbind("scroll");
-				// disable for now...
+				// Do continuation
 				Application.getMoreItems();
 			}
 		},
@@ -971,13 +972,14 @@ var Application = function() {
 		------------------------------------------ */
 		readItem: function(elm,atomEntry) {
 			$("tr", _items_wrap).removeClass("selected");
-			elm.addClass("selected").addClass("read");
-			if (!atomEntry.isRead()) {
+			elm.addClass("selected");
+			if (!elm.hasClass("read")) {
 				var add = "user/-/state/com.google/read";
 				var id = atomEntry.id();
 				var source = atomEntry.sourceId();
 				Application.setUnreadCountById(source);
 				Application.sendItemStatus(id,source,add);
+				elm.addClass("read");
 			}
 		},
 
