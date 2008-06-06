@@ -48,38 +48,6 @@ body {
 		text-align: center;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 	}
-	
-	#menubar #refresh {
-		background-image: url(../img/icons/refresh.png);
-		left: 10px;
-		min-width: 41px;
-	}
-	
-	#menubar #refresh:hover {background-image: url(../img/icons/refresh_on.png);}
-	
-	#menubar #prev {
-		background-image: url(../img/icons/prev.png);
-		left: 210px;
-		min-width: 54px;
-	}
-
-	#menubar #prev:hover {background-image: url(../img/icons/prev_on.png);}
-	
-	#menubar #next {
-		background-image: url(../img/icons/next.png);
-		left: 264px;
-		min-width: 55px;
-	}
-
-	#menubar #next:hover {background-image: url(../img/icons/next_on.png);}
-	
-	#menubar #mark {
-		background-image: url(../img/icons/markread.png);
-		left: 324px;
-		min-width: 53px;
-	}
-	
-	#menubar #mark:hover {background-image: url(../img/icons/markread_on.png);}
 
 	#menubar #search {
 		background-image: url(../img/icons/search.png);
