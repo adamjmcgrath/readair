@@ -208,7 +208,6 @@ body {
 	
 	#feeds li div.selected span {
 		background: white;
-		background-image: url(../img/bg/numleft_on.png), url(../img/bg/numright_on.png);
 		background-repeat: no-repeat, no-repeat;
 		background-position: top left, top right;
 		color: #96A8C7;
@@ -239,7 +238,6 @@ body {
 	
 	#feeds li span {
 		background: #96A8C7;
-		background-image: url(../img/bg/numleft.png), url(../img/bg/numright.png);
 		background-repeat: no-repeat, no-repeat;
 		background-position: top left, top right;			
 		color: white;
