@@ -15,6 +15,10 @@ body.dialogue {
 	background: url(/assets/img/themes/macos/icon_folder.png) no-repeat;
 }
 
+.ui-resizable-s {
+	background-image: url(/assets/img/themes/macos/resize_button.png), url(/assets/img/themes/macos/resize.png) !important;
+}
+
 #status-bar {
 	margin-bottom: -1px;
 }
@@ -22,6 +26,14 @@ body.dialogue {
 #feeds-inner {
 	background: #DEE4EA;
 }
+
+	#feeds li div.selected span {
+		background-image: url(/assets/img/themes/macos/numleft_on.png), url(/assets/img/themes/macos/numright_on.png);
+	}
+	
+	#feeds li span {
+		background-image: url(/assets/img/themes/macos/numleft.png), url(/assets/img/themes/macos/numright.png);
+	}
 
 #items-table-head {
 	background: url(/assets/img/themes/macos/back_grid_title.png) repeat-x 0 0;

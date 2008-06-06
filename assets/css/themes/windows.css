@@ -23,6 +23,30 @@ input {
 	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
 }
 
+.ui-resizable-s {
+	background-image: url(/assets/img/themes/windows/resize.png) !important;
+	height: 5px !important;
+}
+
+#feeds-bar #resize {
+	background-image: url(/assets/img/themes/windows/resize.png);
+}
+
+#feeds li span {
+	font: 6pt Tahoma;
+	font-weight: bold;
+	padding-top: 2px;
+	height: 12px;
+}
+
+#feeds li div.selected span {
+	background-image: url(/assets/img/themes/windows/numleft_on.png), url(/assets/img/themes/windows/numright_on.png);
+}
+
+#feeds li span {
+	background-image: url(/assets/img/themes/windows/numleft.png), url(/assets/img/themes/windows/numright.png);
+}
+
 #items-table-head {
 	background: #ebeadb url(/assets/img/themes/windows/back_grid_title.png) repeat-x bottom;
 	border-top: 1px solid #ebeadb;
