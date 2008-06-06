@@ -361,12 +361,18 @@ var Application = function() {
 			// don't fire keyboard shortcuts when in input element
 			if (e.target.nodeName == "INPUT") {return true;}
 			switch (e.which) {
-			// j
+			// j - next
 			case 106:
 				return Application.getNextItem();
-			// k
+			// k - previous
 			case 107:
 				return Application.getPrevItem();
+            // r - refresh
+            case 114:
+                return Application.getFeeds();
+            // shift + a - mark all as read
+            case 65:
+                return Application.readAllItems();
 			default:
 				// do nothing
 			}
@@ -958,7 +964,7 @@ var Application = function() {
 			Application.sendItemStatus(atomid,source,add,remove);
 			elm.toggleClass("starred");
 		},
-		
+
 		/* read item
 		elm:Object - jquery tr elm
 		id:String - the id of the tag, label or feed
@@ -974,7 +980,7 @@ var Application = function() {
 				Application.sendItemStatus(id,source,add);
 			}
 		},
-		
+
 		/* read all items
 		------------------------------------------ */
 		readAllItems: function() {
