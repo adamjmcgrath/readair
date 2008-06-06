@@ -1,34 +1,47 @@
-/*
-GRA.atom
-Represents an atom feed
-*/
+/**
+ * @fileoverview Abstraction of google readers atom feed
+ * @author Adam McGrath
+ * takes atom in either XML or JSON
+ */
 
-// GRA Namespace
 if (typeof GRA == "undefined") {var GRA = {};}
 
-/* Initialize private properties
-payload:XML/JSON - 
------------------------------------------- */
+/**
+ * Constructor of the atom class.
+ * @constructor
+ * @param {XML|Object} payload The atom feed data in JSON or XML format. 
+ * @return {Object} An instance of the GRA.atom class.
+ */
 GRA.atom = function(payload) {
 	this.setData(payload);
 	this._ns = "http://www.w3.org/2005/Atom";
 	this._allEntries = new Array();
 }
 
-/* 
-Methods
------------------------------------------- */
-
 GRA.atom.prototype = {
 	
+	/**
+	 * Checks to say whether this instance of the GRA.atom object is in 'JSON mode'
+	 * @private
+	 * @return {Boolean} True if the atom was constructed with JSON.
+	 */
 	_isJSON: function() {
 		return Boolean(this._json);
 	},
 	
+	/**
+	 * Checks to say whether this instance of the GRA.atom object is in 'XML mode'
+	 * @private
+	 * @return {Boolean} True if the atom was constructed with JSON.
+	 */
 	_isXML: function() {
 		return Boolean(this._xml);
 	},
 	
+	/**
+	 * Checks the type of data the sets the correct property; JSON or XML.
+	 * @param {Object|XML} payload The atom feed data in JSON or XML format.
+	 */
 	setData: function(payload) {
 		this._json = null;
 		this._xml = null;
@@ -38,7 +51,13 @@ GRA.atom.prototype = {
 			this._xml = LIB.dom.parseFromString(payload);
 		}
 	},
-	
+
+	/**
+	 * Grabs entries from the data and returns an array
+	 * (Reader returns sets of 20 entries at a time)
+	 * @param {Boolean} all Switch to either return all entries, or just the currrent set
+	 * @return {Array} An array of atom entry nodes.
+	 */
     entries: function(all) {
 		var entries = new Array();
 		if (this._isXML()) {
@@ -49,7 +68,11 @@ GRA.atom.prototype = {
 		this._allEntries = this._allEntries.concat(entries);
 		return all ? this._allEntries : entries;
 	},
-	
+
+	/**
+	 * Gets the id of the atom feed
+	 * @return {String} The atom feed's id.
+	 */	
 	id: function() {
 		var id = new String();
 		if (this._isXML()) {
@@ -62,7 +85,12 @@ GRA.atom.prototype = {
 		}
 		return id;
 	},
-	
+
+	/**
+	 * Gets the continuation id of the atom feed
+	 * This is the id that tells Reader what atom entrys to return
+	 * @return {String} The atom feed's continiation id.
+	 */
 	continuation: function() {
 		var str = new String();
 		if (this._isXML()) {
@@ -73,6 +101,10 @@ GRA.atom.prototype = {
 		return str;
 	},
 	
+	/**
+	 * Generates the html for the items table either by XSLT or String concatenation
+	 * @return {String} string of html table rows, 1 per atom item.
+	 */
 	HTML: function() {
 		var HTML = "";
 		if (this._isXML()) {
@@ -100,15 +132,20 @@ GRA.atom.prototype = {
 		return HTML;
 	},
 	
+	/**
+	 * Returns a GRA.atomentry Instance with the corresponding id
+	 * @param {String} id The Id of the atom item. 
+	 * @return {Object|Boolean} Instance of GRA.atomentry class or false.
+	 */
 	getItemById: function(id) {
 		var entries = this.entries(true);
 		for (var i=0; i < entries.length; i++) {
 			var entry = new GRA.atomentry(entries[i]);
-			air.trace(entry.id());
 			if (entry.id() == id) {
 				return entries[i];
 			}
 		};
         return false;		
 	}
+
 }
