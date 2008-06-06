@@ -61,10 +61,53 @@ input {
 	background: #316ac5;
 }
 
+/* menu 
+--------------------------------------- */
+
 #menubar {
 	background: url(/assets/img/themes/windows/menubar.png) repeat-x bottom left;
 	border-bottom: 1px solid #7f9db9;
 }
+
+	#menubar #refresh {
+		background-image: url(/assets/img/themes/windows/toolbar_refresh.png);
+		left: 10px;
+		min-width: 41px;
+	}
+
+	#menubar #refresh:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_refresh_on.png);
+	}
+
+	#menubar #prev {
+		background-image: url(/assets/img/themes/windows/toolbar_prev.png);
+		left: 210px;
+		min-width: 54px;
+	}
+
+	#menubar #prev:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_prev_on.png);
+	}
+
+	#menubar #next {
+		background-image: url(/assets/img/themes/windows/toolbar_next.png);
+		left: 264px;
+		min-width: 55px;
+	}
+
+	#menubar #next:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_next_on.png);
+	}
+
+	#menubar #mark {
+		background-image: url(/assets/img/themes/windows/toolbar_markread.png);
+		left: 324px;
+		min-width: 53px;
+	}
+
+	#menubar #mark:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_markread_on.png);
+	}
 
 /* forms 
 --------------------------------------- */
