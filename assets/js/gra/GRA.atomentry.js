@@ -110,7 +110,6 @@ GRA.atomentry.prototype = {
 			isRead = nodes.length > 0 ? true : false;
 		} else if (this._isJSON()) {
 			for (var i=0; i < this.tags().length; i++) {
-				air.trace(this.tags()[i]);
 				if (LIB.string.endsWith(this.tags()[i],"state/com.google/read")) {	
 					return true;
 				}
