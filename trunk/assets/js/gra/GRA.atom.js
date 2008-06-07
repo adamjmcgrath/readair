@@ -13,9 +13,10 @@ if (typeof GRA == "undefined") {var GRA = {};}
  * @return {Object} An instance of the GRA.atom class.
  */
 GRA.atom = function(payload) {
-	this.setData(payload);
 	this._ns = "http://www.w3.org/2005/Atom";
+	this._currentEntries = new Array();
 	this._allEntries = new Array();
+	this.setData(payload);
 }
 
 GRA.atom.prototype = {
@@ -50,23 +51,31 @@ GRA.atom.prototype = {
 		} else {
 			this._xml = LIB.dom.parseFromString(payload);
 		}
+		this.setEntries();
 	},
 
 	/**
-	 * Grabs entries from the data and returns an array
-	 * (Reader returns sets of 20 entries at a time)
-	 * @param {Boolean} all Switch to either return all entries, or just the currrent set
-	 * @return {Array} An array of atom entry nodes.
+	 * Gets either all feeds or current feeds associated with atom instance
+	 * @param {Boolean} all Switch to say whether to return all or current. 
+	 * @return {Array} Array of GRA.atomentry instances.
 	 */
-    entries: function(all) {
+	getEntries: function(all) {
+		return all ? this._allEntries : this._currentEntries;
+	},
+
+	/**
+	 * Sets the entries array properties
+	 * (Reader returns sets of 20 entries at a time)
+	 */
+    setEntries: function() {
 		var entries = new Array();
 		if (this._isXML()) {
 			entries = LIB.dom.evaluateXPath(this._xml, "/atom:feed/atom:entry", this._ns);
 		} else if (this._isJSON()) {
 			entries = this._json['items'];
 		}
+		this._currentEntries = entries;
 		this._allEntries = this._allEntries.concat(entries);
-		return all ? this._allEntries : entries;
 	},
 
 	/**
@@ -110,8 +119,9 @@ GRA.atom.prototype = {
 		if (this._isXML()) {
 			HTML = LIB.xslt.transformToFragment("/assets/xslt/atom.xslt",this._xml);
 		} else if (this._isJSON()) {
-			for (var i=0; i < this.entries().length; i++) {
-				var atomEntryObj = new GRA.atomentry(this.entries()[i]);
+			var entries = this.getEntries();
+			for (var i=0; i < entries.length; i++) {
+				var atomEntryObj = new GRA.atomentry(entries[i]);
 				var classname = "";
 				if (atomEntryObj.isStarred() && atomEntryObj.isRead()) {
 					classname = "starred read";
@@ -138,7 +148,8 @@ GRA.atom.prototype = {
 	 * @return {Object|Boolean} Instance of GRA.atomentry class or false.
 	 */
 	getItemById: function(id) {
-		var entries = this.entries(true);
+		var entries = this.getEntries(true);
+		//var entries = this._allEntries;
 		for (var i=0; i < entries.length; i++) {
 			var entry = new GRA.atomentry(entries[i]);
 			if (entry.id() == id) {
