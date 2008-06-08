@@ -103,6 +103,9 @@ var Application = function() {
 		------------------------------------------ */
 		
 		init: function() {
+			// init window position
+			Application.initPosition();	
+		
 			// operation system
 			Application.osCheck();
 			
@@ -120,8 +123,8 @@ var Application = function() {
 			_subtract_btn = $("#subtract");
 			_all_label = $("#reading-list");
 			_starred_label = $("#starred-items");
-			_shared_label = $("#shared-items");			
-			
+			_shared_label = $("#shared-items");	
+
 			// Check for updates
 			GRA.update.init();	
 			// Initiate the layout
@@ -134,6 +137,22 @@ var Application = function() {
 			Application.updateTheme();
 			// Check for email/password in the encrypted store
 			Application.checkLogin();
+		},
+		
+		/*
+		 * initialize window position
+		 */
+		initPosition: function() {
+			var position = GRA.encryptedstore.getWindowPosition();
+
+			if (position.maximized) {
+				air.NativeApplication.nativeApplication.activeWindow.maximize();
+			} else {
+				air.NativeApplication.nativeApplication.activeWindow.x = position.x;
+				air.NativeApplication.nativeApplication.activeWindow.y = position.y;
+				air.NativeApplication.nativeApplication.activeWindow.width = position.width;
+				air.NativeApplication.nativeApplication.activeWindow.height = position.height;
+			}
 		},
 		
 		/*
@@ -260,6 +279,8 @@ var Application = function() {
 			/* keypress */
 			$(document).keypress(this.shortcuts);
 
+			/* on window closing */
+			air.NativeApplication.nativeApplication.activeWindow.addEventListener(air.Event.CLOSING, Application.windowClosing);
 			/* on application closing */
 			air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, Application.closing);
 		},
@@ -376,6 +397,22 @@ var Application = function() {
 			default:
 				// do nothing
 			}
+		},
+		
+		/* closing:Void
+		e:Event - the window closing event
+		------------------------------------------ */
+		windowClosing: function(e) {
+			// save position
+			GRA.encryptedstore.setWindowPosition(
+				air.NativeApplication.nativeApplication.activeWindow.x,
+				air.NativeApplication.nativeApplication.activeWindow.y,
+				air.NativeApplication.nativeApplication.activeWindow.width,
+				air.NativeApplication.nativeApplication.activeWindow.height,
+				air.NativeApplication.nativeApplication.activeWindow.displayState == air.NativeWindowDisplayState.MAXIMIZED
+			);
+			
+			// todo: make this only by the checkbox in preferences
 		},
 		
 		/* closing:Void
@@ -970,7 +1007,7 @@ var Application = function() {
 		elm:Object - jquery tr elm
 		id:String - the id of the tag, label or feed
 		------------------------------------------ */
-		readItem: function(elm,atomEntry) {
+		readItem: function(elm, atomEntry) {
 			$("tr", _items_wrap).removeClass("selected");
 			elm.addClass("selected");
 			if (!elm.hasClass("read")) {
@@ -978,7 +1015,7 @@ var Application = function() {
 				var id = atomEntry.id();
 				var source = atomEntry.sourceId();
 				Application.setUnreadCountById(source);
-				Application.sendItemStatus(id,source,add);
+				Application.sendItemStatus(id, source, add);
 				elm.addClass("read");
 			}
 		},

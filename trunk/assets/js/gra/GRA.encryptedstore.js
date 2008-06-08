@@ -37,6 +37,21 @@ GRA.encryptedstore = {
 	_REFRESH: "refresh",
 	// theme (string)
 	_THEME: "theme",
+
+	/*
+	 * window position
+	 */
+	
+	// x coordinate
+	_LEFT: "left",
+	// y coordinate
+	_TOP: "top",
+	// width
+	_WIDTH: "width",
+	// height
+	_HEIGHT: "height",
+	// maximized
+	_MAXIMIZED: "maximized",
 	
 	/*
 	getItem:String
@@ -60,6 +75,51 @@ GRA.encryptedstore = {
 		air.EncryptedLocalStore.setItem(prop,data);
 	},
 	
+	/*
+	 * get window position
+	 * @return {array} position elements array
+	 */
+	getWindowPosition: function() {
+		// defaults
+		if ( !this.getItem(this._LEFT) )
+		{
+			return {
+				x: 200,
+				y: 100,
+				width: 800,
+				height: 600,
+				maximized: false
+			};
+		}
+		
+		return {
+			x: Number(this.getItem(this._LEFT)),
+			y: Number(this.getItem(this._TOP)),
+			width: Number(this.getItem(this._WIDTH)),
+			height: Number(this.getItem(this._HEIGHT)),
+			maximized: this.getItem(this._MAXIMIZED) == 'true'
+		}
+	},
+	
+	/*
+	 * set window position
+	 * @param {integer} x coordinate
+	 * @param {integer} y coordinate
+	 * @param {integer} width
+	 * @param {integer} height
+	 * @param {boolean} maximized state
+	 */
+	setWindowPosition: function( left, top, width, height, maximized ) {
+		this.setItem(this._MAXIMIZED, maximized);
+		
+		if ( !maximized ) {
+			this.setItem(this._LEFT, left);
+			this.setItem(this._TOP, top);
+			this.setItem(this._WIDTH, width);
+			this.setItem(this._HEIGHT, height);
+		}
+	},
+	
 	/* 
 	------------------------------------------
 	Preferences
@@ -67,7 +127,7 @@ GRA.encryptedstore = {
 	checkUpdate:Boolean
 	------------------------------------------ */
 	checkUpdate: function() {
-		return Booelan(this.getItem(this._UPDATE));
+		return Boolean(this.getItem(this._UPDATE));
 	},
 	
 	/*
@@ -140,7 +200,6 @@ GRA.encryptedstore = {
 		air.EncryptedLocalStore.removeItem(this._PASSWD);
 		air.EncryptedLocalStore.removeItem(this._REMEMBER);
 		air.EncryptedLocalStore.removeItem(this._COOKIE);
-	}
-	
+	}	
 }
 
