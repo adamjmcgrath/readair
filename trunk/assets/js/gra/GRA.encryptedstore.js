@@ -42,6 +42,9 @@ GRA.encryptedstore = {
 	 * window position
 	 */
 	
+	// save window position
+	_SAVEPOSITION: "saveposition",
+	
 	// x coordinate
 	_LEFT: "left",
 	// y coordinate
@@ -54,21 +57,49 @@ GRA.encryptedstore = {
 	_MAXIMIZED: "maximized",
 	
 	/*
-	getItem:String
-	prop:String
-	------------------------------------------ */
+	 * get boolean item
+	 * @param {String} property name
+	 */
+	getBooleanItem: function( prop ) {
+		var item = air.EncryptedLocalStore.getItem(prop);
+		if (item) {
+			var value = item.readByte(); 
+			return value == 1;
+		}
+
+		return false;
+	},
+	
+	/*
+	 * get string item
+	 * @param {String} property name
+	 */
 	getItem: function(prop) {
 		var value = false;
 		var item = air.EncryptedLocalStore.getItem(prop);
 		if (item) {
-			var value = item.readUTFBytes(item.bytesAvailable);
+			value = item.readUTFBytes(item.bytesAvailable);
 		}
+
 		return value;
 	},
 	
 	/*
-	setItem:Void
-	------------------------------------------ */
+	 * set boolean item value
+	 * @param {String} property name
+	 * @param {Boolean} property value
+	 */
+	setBooleanItem: function(prop, value) {
+		var data = new air.ByteArray();
+		data.writeByte( ( value ) ? 1 : 0 );
+		air.EncryptedLocalStore.setItem(prop, data);
+	},
+	
+	/*
+	 * set string item value
+	 * @param {String} property name
+	 * @param {String} property value
+	 */
 	setItem: function(prop,value) {
 		var data = new air.ByteArray();
 		data.writeUTFBytes(value);
@@ -97,8 +128,7 @@ GRA.encryptedstore = {
 			y: Number(this.getItem(this._TOP)),
 			width: Number(this.getItem(this._WIDTH)),
 			height: Number(this.getItem(this._HEIGHT)),
-			// boolean is not working ? O.o
-			maximized: this.getItem(this._MAXIMIZED) == 'true'
+			maximized: this.getBooleanItem(this._MAXIMIZED)
 		}
 	},
 	
@@ -111,7 +141,7 @@ GRA.encryptedstore = {
 	 * @param {boolean} maximized state
 	 */
 	setWindowPosition: function( left, top, width, height, maximized ) {
-		this.setItem(this._MAXIMIZED, maximized);
+		this.setBooleanItem(this._MAXIMIZED, maximized);
 		
 		if ( !maximized ) {
 			this.setItem(this._LEFT, left);
@@ -128,7 +158,7 @@ GRA.encryptedstore = {
 	checkUpdate:Boolean
 	------------------------------------------ */
 	checkUpdate: function() {
-		return Boolean(this.getItem(this._UPDATE));
+		return this.getBooleanItem(this._UPDATE);
 	},
 	
 	/*
@@ -139,19 +169,36 @@ GRA.encryptedstore = {
 	},
 	
 	/*
-	theme:Number
+	setPrefs:Void
 	------------------------------------------ */
+	setPrefs: function(i_update, i_refresh, i_theme, i_savePosition) {
+		this.setBooleanItem(this._UPDATE, i_update);
+		this.setItem(this._REFRESH, i_refresh);
+		
+		this.setItem(this._THEME, i_theme);
+		this.setBooleanItem(this._SAVEPOSITION, i_savePosition);
+	},
+	
+	/*
+	 * ------------------------------------------
+	 * Appearance settings
+	 * ------------------------------------------
+	 */
+	
+	/*
+	 * used theme
+	 * @return {String} theme name
+	 */
 	theme: function() {
 		return String(this.getItem(this._THEME));
 	},
 	
 	/*
-	setPrefs:Void
-	------------------------------------------ */
-	setPrefs: function(update,refresh,theme) {
-		this.setItem(this._UPDATE,String(update));
-		this.setItem(this._REFRESH,refresh);
-		this.setItem(this._THEME,theme);
+	 * save window position
+	 * @return {Boolean} save window position on close
+	 */
+	savePosition: function() {
+		return this.getBooleanItem( this._SAVEPOSITION );
 	},
 	
 	/* 
@@ -178,7 +225,7 @@ GRA.encryptedstore = {
 	rememberLoginDetails:Boolean
 	------------------------------------------ */
 	saveLogin: function() {
-		return this.getItem(this._REMEMBER);
+		return this.getBooleanItem(this._REMEMBER);
 	},
 	
 	/*
@@ -187,10 +234,10 @@ GRA.encryptedstore = {
 	passwd:String - users passwd
 	remember:Boolean - wether to remember details
 	------------------------------------------ */
-	setLoginDetails: function(email,passwd,remember) {
-		this.setItem(this._EMAIL,email);
-		this.setItem(this._PASSWD,passwd);
-		this.setItem(this._REMEMBER,remember);
+	setLoginDetails: function(i_email,i_passwd,i_remember) {
+		this.setItem(this._EMAIL,i_email);
+		this.setItem(this._PASSWD,i_passwd);
+		this.setBooleanItem(this._REMEMBER,i_remember);
 	},
 	
 	/*

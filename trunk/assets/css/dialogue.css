@@ -196,8 +196,18 @@ table.form {
 		    visibility: hidden;
 		}
 
-#general-link {background-image: url(../img/icons/prefs-general.png);}
-#account-link {background-image: url(../img/icons/prefs-account.png);}
+#general-link {
+	background-image: url(../img/icons/prefs-general.png);
+}
+
+#account-link {
+	background-image: url(../img/icons/prefs-account.png);
+}
+
+#appearance-link {
+	background-image: url(../img/icons/prefs-appearance.png);
+}
+
 #feeds-link {background-position: 50% 6px !important; background-image: url(../img/icons/prefs-feeds.png);}
 #tags-link {background-image: url(../img/icons/prefs-tags.png);}
 

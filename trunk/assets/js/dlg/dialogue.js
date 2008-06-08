@@ -15,11 +15,13 @@ var GRA = theOpener.GRA;
 var Application = theOpener.Application;
 
 var refresh = GRA.encryptedstore.getItem("refresh");
-var update = GRA.encryptedstore.getItem("update");
-var theme = GRA.encryptedstore.getItem("theme");
+var update = GRA.encryptedstore.getBooleanItem("update");
 var email = GRA.encryptedstore.getItem("email");
 var passwd = GRA.encryptedstore.getItem("passwd");
-var remember = GRA.encryptedstore.getItem("rememeber");
+var remember = GRA.encryptedstore.getBooleanItem("remember");
+
+var theme = GRA.encryptedstore.getItem("theme");
+var savePosition = GRA.encryptedstore.getBooleanItem("saveposition");
 
 /*
 -----------------------------------------------------------
@@ -40,26 +42,36 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 			$("#theme", "html head").attr( { "href" : "assets/css/themes/" + theme + ".css" } );
 		},
 		
-		
 		/* setupEventListeners:Void
 		------------------------------------------ */
 		setupEventListeners: function() {
 			$("#prefs-form").submit(Dialogue.setPrefs);
 			// isn't needed (?)
-			//$("button.cancel").click(function() {window.nativeWindow.close()});
+			$("button.cancel").click(function(e) {
+				e.preventDefault();
+				window.nativeWindow.close();
+			});
 		},
 		
 		/* setupForms:Void
 		------------------------------------------ */
 		setupForms: function() {
 			if (GRA.encryptedstore.savedLoginDetails()) {	
-				$("#refreshtime").val(refresh);
-				$("#checkatstart").val(update);
-				// val isn't working with letters =/
-				$("option[@value='" + theme + "']").attr( { "selected" : "selected" } );
 				$("#email").val(email);
 				$("#passwd").val(passwd);
-				$("#rememeber").val(remember);
+				
+				if ( remember )
+					$("#remember").attr( { "checked" : "checked" } );
+			}
+			
+			if ( refresh != false ) {
+				$("#refreshtime").val(refresh);
+				$("select[@name='checkatstart'] option[@value='" + ( update ? 1 : 0 ) + "']").attr( { "selected": "selected" } );
+
+				// val isn't working with letters =/
+				$("select[@name='theme'] option[@value='" + theme + "']").attr( { "selected": "selected" } );
+				if ( savePosition )
+					$("#position").attr( { "checked" : "checked" } );
 			}
 		},
 		
@@ -68,8 +80,14 @@ var remember = GRA.encryptedstore.getItem("rememeber");
 		------------------------------------------ */
 		setPrefs: function(e) {
 			e.preventDefault();
-			GRA.encryptedstore.setPrefs(e.target.checkatstart.value, e.target.refreshtime.value, e.target.theme.value);
-			Application.updateTheme();			
+			GRA.encryptedstore.setPrefs(
+				( e.target.checkatstart.value == 1 ) ? true : false,
+				e.target.refreshtime.value,
+				e.target.theme.value,
+				e.target.position.checked);
+				
+			Application.updateTheme();
+						
 			GRA.encryptedstore.setLoginDetails(e.target.email.value, e.target.passwd.value, e.target.remember.checked);
 			var login = new DLG.login(e.target.email.value,e.target.passwd.value);
 			LIB.httpr.postRequest(GRA.cons.URI_LOGIN(),Dialogue.checkLogin,login.data());	
