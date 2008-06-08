@@ -404,15 +404,14 @@ var Application = function() {
 		------------------------------------------ */
 		windowClosing: function(e) {
 			// save position
-			GRA.encryptedstore.setWindowPosition(
-				air.NativeApplication.nativeApplication.activeWindow.x,
-				air.NativeApplication.nativeApplication.activeWindow.y,
-				air.NativeApplication.nativeApplication.activeWindow.width,
-				air.NativeApplication.nativeApplication.activeWindow.height,
-				air.NativeApplication.nativeApplication.activeWindow.displayState == air.NativeWindowDisplayState.MAXIMIZED
-			);
-			
-			// todo: make this only by the checkbox in preferences
+			if ( GRA.encryptedstore.savePosition() )
+				GRA.encryptedstore.setWindowPosition(
+					air.NativeApplication.nativeApplication.activeWindow.x,
+					air.NativeApplication.nativeApplication.activeWindow.y,
+					air.NativeApplication.nativeApplication.activeWindow.width,
+					air.NativeApplication.nativeApplication.activeWindow.height,
+					air.NativeApplication.nativeApplication.activeWindow.displayState == air.NativeWindowDisplayState.MAXIMIZED
+				);
 		},
 		
 		/* closing:Void
