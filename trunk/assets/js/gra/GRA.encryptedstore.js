@@ -97,6 +97,7 @@ GRA.encryptedstore = {
 			y: Number(this.getItem(this._TOP)),
 			width: Number(this.getItem(this._WIDTH)),
 			height: Number(this.getItem(this._HEIGHT)),
+			// boolean is not working ? O.o
 			maximized: this.getItem(this._MAXIMIZED) == 'true'
 		}
 	},
