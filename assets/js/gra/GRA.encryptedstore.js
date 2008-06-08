@@ -229,11 +229,11 @@ GRA.encryptedstore = {
 	},
 	
 	/*
-	getLoginDetails:Void
-	email:String - users email
-	passwd:String - users passwd
-	remember:Boolean - wether to remember details
-	------------------------------------------ */
+	 * set login details
+	 * @param {String} users email
+	 * @param {String} users password
+	 * @param {Boolean} remember login details
+	 */
 	setLoginDetails: function(i_email,i_passwd,i_remember) {
 		this.setItem(this._EMAIL,i_email);
 		this.setItem(this._PASSWD,i_passwd);
@@ -241,8 +241,8 @@ GRA.encryptedstore = {
 	},
 	
 	/*
-	removeLoginDetails:Void
-	------------------------------------------ */
+	 * remove login details
+	 */
 	removeLoginDetails: function() {
 		air.EncryptedLocalStore.removeItem(this._EMAIL);
 		air.EncryptedLocalStore.removeItem(this._PASSWD);
