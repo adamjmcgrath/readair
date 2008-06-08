@@ -19,8 +19,12 @@ input {
 	border-top: 1px solid #959385;
 }
 
-.ifolder {
-	background: url(/assets/img/themes/windows/icon_folder.png) no-repeat;
+img.ifolder {
+	content: url(/assets/img/themes/windows/icon_folder.png);
+}
+
+img.favicon {
+	content: url('/assets/img/themes/windows/icon_item.png');
 }
 
 .ui-resizable-s {

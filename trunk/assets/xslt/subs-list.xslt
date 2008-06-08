@@ -21,7 +21,7 @@
 		<div href="{string[@name='id']}" class="folder">
 			<img src="assets/img/icons/arrow-right.png" width="10" height="10" class="right" />
 			<img src="assets/img/icons/arrow-down.png" width="10" height="10" class="down" />
-			<img src="assets/img/icons/folder.png" width="16" height="16" />
+			<img class="ifolder" width="16" height="16" />
 			<xsl:value-of select="string[@name='label']" />
 			<span></span>
 		</div>
@@ -40,7 +40,7 @@
 	<li>
 		<!-- <div class="{translate(string[@name='id'],'?','')}"> -->
 		<div href="{string[@name='id']}">
-			<img src="/assets/img/icons/default.png" width="16" height="16" class="favicon" />
+			<img width="16" height="16" class="favicon" />
 			<xsl:value-of select="substring(string[@name='title'],1,17)" />
 			<xsl:if test="string-length(string[@name='title']) &gt; 17">...</xsl:if>
 			<span></span>

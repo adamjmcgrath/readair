@@ -11,8 +11,12 @@ body.dialogue {
 	border-top: 1px solid #CECECE;
 }
 
-.ifolder {
-	background: url(/assets/img/themes/macos/icon_folder.png) no-repeat;
+img.ifolder {
+	content: url(/assets/img/themes/macos/icon_folder.png) no-repeat;
+}
+
+img.favicon {
+	content: url('/assets/img/themes/macos/icon_item.png');
 }
 
 .ui-resizable-s {

@@ -46,7 +46,6 @@ var savePosition = GRA.encryptedstore.getBooleanItem("saveposition");
 		------------------------------------------ */
 		setupEventListeners: function() {
 			$("#prefs-form").submit(Dialogue.setPrefs);
-			// isn't needed (?)
 			$("button.cancel").click(function(e) {
 				e.preventDefault();
 				window.nativeWindow.close();
