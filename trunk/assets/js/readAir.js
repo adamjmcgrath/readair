@@ -17,7 +17,6 @@ var Application = function() {
 	/* tray icon
 	------------------------------------------ */
 	var _tray = null;
-	var _trayMenu = null;
 
 	/* authentication objects 
 	------------------------------------------ */
@@ -103,16 +102,12 @@ var Application = function() {
 		------------------------------------------ */
 		
 		init: function() {
-			// operation system
-			Application.osCheck();
-			
 			// init window position
 			Application.initPosition();	
-			
-			// add application menu for MacOS
-			if ( Application.os.macos )
-				Application.initMenu();
-			
+
+			// operation system
+			Application.osCheck();
+
 			// Set HTML Elements
 			_feeds_wrap = $("#feeds-scroll-wrap");
 			_items_wrap = $("#atom-table");
@@ -137,10 +132,13 @@ var Application = function() {
 			Application.setupEventListeners();
 			// Tray
 			Application.initTray();
+			// Native menu items
+			Application.initNativeMenus();
 			// Set theme css
 			Application.updateTheme();
 			// Check for email/password in the encrypted store
 			Application.checkLogin();
+			
 		},
 		
 		/*
@@ -170,82 +168,46 @@ var Application = function() {
 		
 		initTray: function() {
 			_tray = new air.Loader();
-			_trayMenu = new air.NativeMenu();
-			
-			var traySupported = false;
-			
-		    if (air.NativeApplication.supportsDockIcon) {
-				traySupported = true;
-		        _tray.contentLoaderInfo.addEventListener(air.Event.COMPLETE, Application.trayIconLoadComplete);
-		        _tray.load(new air.URLRequest("/icon/ReadAir_128.png"));
-		        air.NativeApplication.nativeApplication.icon.menu = _trayMenu;
-		    }
-		
 		    if (air.NativeApplication.supportsSystemTrayIcon) {
-				traySupported = true;
 		        _tray.contentLoaderInfo.addEventListener(air.Event.COMPLETE, Application.trayIconLoadComplete);
 		        _tray.load(new air.URLRequest("/icon/ReadAir_16.png"));
-		        air.NativeApplication.nativeApplication.icon.tooltip = "ReadAIR";
-		        air.NativeApplication.nativeApplication.icon.menu = _trayMenu;
 		    }
-			
-			if ( traySupported ) {
-				var separator = new air.NativeMenuItem("A", true);
-			
-				// preferences item
-				var preferencesItem = _trayMenu.addItem(new air.NativeMenuItem("Preferences"));
-				
-				preferencesItem.addEventListener(air.Event.SELECT,function(event){
-					Application._dialogue_prefs = new GRA.dialogue("general");
-					Application._dialogue_prefs.open();
-			    });
-				
-				// -- separator
-				_trayMenu.addItem(separator);
-				
-				var logoutItem = _trayMenu.addItem(new air.NativeMenuItem("Logout"));
-				
-				logoutItem.addEventListener(air.Event.SELECT, Application.logout);
-				
-				// exit item
-				var exitItem = _trayMenu.addItem(new air.NativeMenuItem("Exit"));
-				
-			    exitItem.addEventListener(air.Event.SELECT,function(event){
-					air.NativeApplication.nativeApplication.icon.bitmaps = [];
-					air.NativeApplication.nativeApplication.exit();
-			    });
-			}
 		},
 		
-		/*
-		------------------------------------------
- 		application menu (just for macOs)
-		------------------------------------------ */
-		
-		initMenu: function() {
+		/**
+		 * Initiate the Application menu.
+		 */
+		initNativeMenus: function() {
+			// Set up menu items
+			var separator = new GRA.nativemenuitem(false);
+			var prefs = new GRA.nativemenuitem("Preferences",",",Application.showPrefs);
+			var logout = new GRA.nativemenuitem("Logout",false,Application.logout);
+			var exit = new GRA.nativemenuitem("Exit",false,Application.exit);
+			// Set up menus
+			// Application Menu
 			if (air.NativeApplication.supportsMenu) {
-				var menu = air.NativeApplication.nativeApplication.menu.getItemAt(0).submenu;
-
-				// separator
-				menu.addItemAt(new air.NativeMenuItem("", true), 1);
-
-				// prefItem
-				var prefItem = menu.addItemAt(new air.NativeMenuItem("Preferences"), 2);
-				prefItem.keyEquivalent = ',';
-				prefItem.addEventListener(air.Event.SELECT, function(){
-					Application._dialogue_prefs = new GRA.dialogue("general");
-					Application._dialogue_prefs.open();
-				});
-
-				// log out Item
-				var loItem = menu.addItemAt(new air.NativeMenuItem("Logout"), 3);
-				loItem.addEventListener(air.Event.SELECT, Application.logout);
-				
-				//separator
-				menu.addItemAt(new air.NativeMenuItem("", true), 4);
+				var rootAppMenu = new GRA.nativemenu("application","ReadAir",[separator.clone(),prefs.clone(),logout.clone(),separator.clone()]);		
+			}
+			// Dock menu
+			if (air.NativeApplication.supportsDockIcon) {
+				var dockMenu = new GRA.nativemenu("dock","ReadAir",[prefs.clone(),separator.clone(),logout.clone()]);
+			}
+			// System Tray Menu
+			if (air.NativeApplication.supportsSystemTrayIcon) {
+				var dockMenu = new GRA.nativemenu("systemtray","ReadAir",[prefs.clone(),separator.clone(),logout.clone(),exit.clone()]);
 			}
 		},
 		
+		showPrefs: function() {
+			Application._dialogue_prefs = new GRA.dialogue("general");
+			Application._dialogue_prefs.open();
+		},
+		
+		exit: function(e) {
+			air.NativeApplication.nativeApplication.icon.bitmaps = [];
+			air.NativeApplication.nativeApplication.exit();
+		},
+
 		/* 
 		------------------------------------------
  		themes

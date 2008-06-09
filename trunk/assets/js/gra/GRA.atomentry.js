@@ -4,6 +4,9 @@
  * takes atom item as either an XML Node or JSON
  */
 
+/**
+ * @namespace GRA
+ */
 if (typeof GRA == "undefined") {var GRA = {}}
 
 /**
