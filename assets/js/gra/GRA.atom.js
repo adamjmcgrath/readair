@@ -4,10 +4,13 @@
  * takes atom in either XML or JSON
  */
 
+/**
+ * @namespace GRA
+ */
 if (typeof GRA == "undefined") {var GRA = {};}
 
 /**
- * Constructor of the atom class.
+ * Constructor of the GRA.atom class.
  * @constructor
  * @param {XML|Object} payload The atom feed data in JSON or XML format. 
  * @return {Object} An instance of the GRA.atom class.
