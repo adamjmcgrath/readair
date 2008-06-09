@@ -8,7 +8,7 @@
 <xsl:template match="object">
 	<ul>
 		<xsl:apply-templates select="list/object/list/object[count(. | key('feeds-by-label', string[@name='label'])[1]) = 1][string[@name='label']]" mode="tag">
-			<xsl:sort select="list/object/string[@name='label']" />
+			<xsl:sort select="string[@name='label']" />
 		</xsl:apply-templates>
 		<xsl:apply-templates select="list/object[list[not(node())]]" mode="feed">
 			<xsl:sort select="string[@name='title']" />
