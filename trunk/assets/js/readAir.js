@@ -103,11 +103,15 @@ var Application = function() {
 		------------------------------------------ */
 		
 		init: function() {
-			// init window position
-			Application.initPosition();	
-		
 			// operation system
 			Application.osCheck();
+			
+			// init window position
+			Application.initPosition();	
+			
+			// add application menu for MacOS
+			if ( Application.os.macos )
+				Application.initMenu();
 			
 			// Set HTML Elements
 			_feeds_wrap = $("#feeds-scroll-wrap");
@@ -210,6 +214,35 @@ var Application = function() {
 					air.NativeApplication.nativeApplication.icon.bitmaps = [];
 					air.NativeApplication.nativeApplication.exit();
 			    });
+			}
+		},
+		
+		/*
+		------------------------------------------
+ 		application menu (just for macOs)
+		------------------------------------------ */
+		
+		initMenu: function() {
+			if (air.NativeApplication.supportsMenu) {
+				var menu = air.NativeApplication.nativeApplication.menu.getItemAt(0).submenu;
+
+				// separator
+				menu.addItemAt(new air.NativeMenuItem("", true), 1);
+
+				// prefItem
+				var prefItem = menu.addItemAt(new air.NativeMenuItem("Preferences"), 2);
+				prefItem.keyEquivalent = ',';
+				prefItem.addEventListener(air.Event.SELECT, function(){
+					Application._dialogue_prefs = new GRA.dialogue("general");
+					Application._dialogue_prefs.open();
+				});
+
+				// log out Item
+				var loItem = menu.addItemAt(new air.NativeMenuItem("Logout"), 3);
+				loItem.addEventListener(air.Event.SELECT, Application.logout);
+				
+				//separator
+				menu.addItemAt(new air.NativeMenuItem("", true), 4);
 			}
 		},
 		
@@ -1088,7 +1121,5 @@ var Application = function() {
 				Application._dialogue_loading.close();
 			}
 		}
-		
 	}
-
 }();
