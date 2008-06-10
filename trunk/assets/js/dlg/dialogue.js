@@ -33,9 +33,9 @@ var savePosition = GRA.encryptedstore.getBooleanItem("saveposition");
 		/* initialise
 		------------------------------------------ */
 		init: function() {
+			Dialogue.updateTheme();
 			Dialogue.setupEventListeners();
 			Dialogue.setupForms();
-			Dialogue.updateTheme();
 		},
 		
 		updateTheme: function() {		
