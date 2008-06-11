@@ -251,7 +251,10 @@ var Application = function() {
 			// click on an item
 			_items_wrap.click(this.itemsClicked);
 			// click on an item detail
-			_item_wrap.click(this.itemClicked);
+			_item_wrap
+				.click(this.itemClicked)
+				.mouseover( this.itemMouseOver )
+				.mouseout(  this.itemMouseOut );
 			
 			/* menubar */
 			// Refresh btn click
@@ -358,12 +361,28 @@ var Application = function() {
 			e.stopPropagation();
 		},
 		
+		/* statusbar text change where mouse is over the link
+		 * @param {Event} mouse over event
+		 */
+		itemMouseOver: function( e ) {
+			if ( $(e.target).is('a') )
+				Application.statusText( $(e.target).attr( "href" ) );
+		},
+		
+		/* statusbar text change to blank
+		 * @param {Event} mouse out event
+		 */
+		itemMouseOut: function( e ) {
+			if ( $(e.target).is('a') )
+				Application.statusText('');
+		},
+		
 		/* item clicked
 		e:Event - the event object
 		------------------------------------------ */
 		itemClicked: function(e) {
 			// open links in browser
-			if (e.target.nodeName == "A" || $(e.target).parents("a").length > 0) {
+			if ( $(e.target).is('a') || $(e.target).parents("a").length > 0) {
 				request = new air.URLRequest(e.target.href || $(e.target).parents("a")[0].href);
 				air.navigateToURL(request);
 			}
@@ -965,14 +984,6 @@ var Application = function() {
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
 			Application.readItem(elm,atomEntry);	
 			_item_wrap.html(atomEntry.HTML());
-			
-			$("a", _item_wrap)
-					.mouseover( function() {
-						Application.statusText( $(this).attr( "href" ) );
-					} )
-					.mouseout( function() {
-						Application.statusText( "" );
-					} );
 			
 			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();
