@@ -301,7 +301,7 @@ GRA.atomentry.prototype = {
 		var HTML = ""
 		+ "<div id=\"head\">"
 		+ "	<h1><a href=\"" + this.link() + "\">" + this.title() + "</a></h1>"
-		+ "	<h2><a class=\"url\" href=\"" + this.sourceUrl() + "\"><img class=\"dfavicon\" width=\"16\" height=\"16\" src=\"123\" />" + this.source() + " - </a> " + this.published().toString('ddd d MMMM, yyyy h:mm tt') + "</h2>"
+		+ "	<h2><a class=\"url\" href=\"" + this.sourceUrl() + "\"><img class=\"dfavicon\" width=\"16\" height=\"16\" />" + this.source() + " - </a> " + this.published().toString('ddd d MMMM, yyyy h:mm tt') + "</h2>"
 		+ "</div>"
 		+ "<div id=\"content\">"
 		+ this.content()
