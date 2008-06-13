@@ -133,6 +133,7 @@ GRA.atom.prototype = {
 				} else if (atomEntryObj.isRead()) {
 					classname="read"
 				}
+				
 				HTML += "<tr class=\"" + classname + "\" id=\"" + atomEntryObj.id() + "\">" +
 					"<td class=\"readTD\">readTD</td>" +
 					"<td class=\"star\">starTD</td>" +
