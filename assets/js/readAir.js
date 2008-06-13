@@ -103,7 +103,7 @@ var Application = function() {
 		
 		init: function() {
 			// init window position
-			Application.initPosition();	
+			Application.initPosition();
 
 			// operation system
 			Application.osCheck();
@@ -148,19 +148,32 @@ var Application = function() {
 			var position = GRA.encryptedstore.getWindowPosition();
 
 			if (position.maximized) {
-				air.NativeApplication.nativeApplication.activeWindow.maximize();
+				window.nativeWindow.maximize();
 			} else {
-				air.NativeApplication.nativeApplication.activeWindow.x = position.x;
-				air.NativeApplication.nativeApplication.activeWindow.y = position.y;
-				air.NativeApplication.nativeApplication.activeWindow.width = position.width;
-				air.NativeApplication.nativeApplication.activeWindow.height = position.height;
+				window.nativeWindow.x = position.x;
+				window.nativeWindow.y = position.y;
+				window.nativeWindow.width = position.width;
+				window.nativeWindow.height = position.height;
 			}
+			
+			window.nativeWindow.visible = true;
+			window.nativeWindow.orderToFront();
 		},
 		
 		/*
 		------------------------------------------
- 		tray icon creation
+ 		tray icon
 		------------------------------------------ */
+		
+		/* minimize to tray if system supports it
+		 * @param {Event} window state change event
+		 */
+		minimizeToTray: function( e ) {
+			if ( ( e.afterDisplayState == 'minimized' ) && ( air.NativeApplication.supportsSystemTrayIcon ) ) {
+				e.preventDefault();
+				window.nativeWindow.visible = false;
+			}
+		},
 		
 		trayIconLoadComplete: function(event) {
 			air.NativeApplication.nativeApplication.icon.bitmaps = new runtime.Array(event.target.content.bitmapData);
@@ -168,9 +181,14 @@ var Application = function() {
 		
 		initTray: function() {
 			_tray = new air.Loader();
-		    if (air.NativeApplication.supportsSystemTrayIcon) {
+		    if ( air.NativeApplication.supportsSystemTrayIcon ) {
 		        _tray.contentLoaderInfo.addEventListener(air.Event.COMPLETE, Application.trayIconLoadComplete);
 		        _tray.load(new air.URLRequest("/icon/ReadAir_16.png"));
+				
+				// change window visibility on tray icon click
+				air.NativeApplication.nativeApplication.icon.addEventListener('click', function() {
+					window.nativeWindow.visible = !window.nativeWindow.visible;
+				} );
 		    }
 		},
 		
@@ -244,6 +262,8 @@ var Application = function() {
 		setupEventListeners: function() {
 			// update items area when resizing a window
 			$(window).resize(Layout.updateScrollBars);
+			// minimize to tray
+			window.nativeWindow.addEventListener('displayStateChanging', Application.minimizeToTray);
 			
 			/* main app clicks */
 			// click on a feed
@@ -278,7 +298,7 @@ var Application = function() {
 			$(document).keypress(this.shortcuts);
 
 			/* on window closing */
-			air.NativeApplication.nativeApplication.activeWindow.addEventListener(air.Event.CLOSING, Application.windowClosing);
+			window.nativeWindow.addEventListener(air.Event.CLOSING, Application.windowClosing);
 			/* on application closing */
 			air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, Application.closing);
 		},

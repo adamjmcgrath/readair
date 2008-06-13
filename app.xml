@@ -10,7 +10,7 @@
 		<title>ReadAir</title>
 		<systemChrome>standard</systemChrome>
 		<transparent>false</transparent>
-		<visible>true</visible>
+		<visible>false</visible>
 		<minimizable>true</minimizable>
 		<maximizable>true</maximizable>
 		<resizable>true</resizable>
