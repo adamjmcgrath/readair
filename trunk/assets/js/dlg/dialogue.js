@@ -50,6 +50,31 @@ var savePosition = GRA.encryptedstore.getBooleanItem("saveposition");
 				e.preventDefault();
 				window.nativeWindow.close();
 			});
+			
+			// check for favicons directory
+			var favdir = air.File.applicationStorageDirectory.resolvePath("favicons");
+			
+			if ( ( favdir.exists ) && ( favdir.isDirectory ) )
+				$("#clear-faviconcache").one('click', Dialogue.clearFaviconCache);
+			else
+				$("#clear-faviconcache").css( { opacity: 0.3 } );
+		},
+		
+		/*
+		 * clear favicon cache
+		 * @param {Event} click event
+		 */
+		clearFaviconCache: function(e) {
+			e.preventDefault();
+			
+			// pseudo-disabled
+			$("#clear-faviconcache").animate( { opacity: 0.3 } );
+			
+			var favdir = air.File.applicationStorageDirectory.resolvePath("favicons");
+			
+			if ( ( favdir.exists ) && ( favdir.isDirectory ) )
+				// delete folder with its content
+				favdir.deleteDirectory(true);
 		},
 		
 		/* setupForms:Void
