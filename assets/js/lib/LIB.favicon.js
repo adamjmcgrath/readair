@@ -10,8 +10,8 @@ LIB.favicon = {
 	/* get the favorite icon link
 	 * @param {String} feed url
 	 */
-	getFavicon: function( id ) {
-		var domain = id.match(/(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/i);
+	getFavicon: function( url ) {
+		var domain = url.match(/(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/i);
 		if (domain != null) {
 			var domname = domain[2];
 			
