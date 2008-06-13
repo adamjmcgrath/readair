@@ -415,21 +415,22 @@ var Application = function() {
 		shortcuts: function(e) {
 			// don't fire keyboard shortcuts when in input element
 			if (e.target.nodeName == "INPUT") {return true;}
+			
 			switch (e.which) {
-			// j - next
-			case 106:
-				return Application.getNextItem();
-			// k - previous
-			case 107:
-				return Application.getPrevItem();
-            // r - refresh
-            case 114:
-                return Application.getFeeds();
-            // shift + a - mark all as read
-            case 65:
-                return Application.readAllItems();
-			default:
-				// do nothing
+				// j - next
+				case 106:
+					return Application.getNextItem();
+				// k - previous
+				case 107:
+					return Application.getPrevItem();
+	            // r - refresh
+	            case 114:
+	                return Application.getFeeds();
+	            // shift + a - mark all as read
+	            case 65:
+	                return Application.readAllItems();
+				default:
+					// do nothing
 			}
 		},
 		
@@ -1002,15 +1003,8 @@ var Application = function() {
 			Layout.updateScroll(elm);
 			var id = elm.attr("id");
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
-			var entryHTML = atomEntry.HTML();
-			
 			Application.readItem(elm, atomEntry);	
-			
-			_item_wrap.html(entryHTML);
-			
-			var favicon = LIB.favicon.getFavicon( $("a.url", entryHTML).attr( "href" ) );
-			$(".dfavicon", _item_wrap).attr( { "src": favicon } );
-			
+			_item_wrap.html(atomEntry.HTML());
 			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();
 		},
