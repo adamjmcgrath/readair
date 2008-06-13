@@ -440,11 +440,11 @@ var Application = function() {
 			// save position
 			if ( GRA.encryptedstore.savePosition() )
 				GRA.encryptedstore.setWindowPosition(
-					air.NativeApplication.nativeApplication.activeWindow.x,
-					air.NativeApplication.nativeApplication.activeWindow.y,
-					air.NativeApplication.nativeApplication.activeWindow.width,
-					air.NativeApplication.nativeApplication.activeWindow.height,
-					air.NativeApplication.nativeApplication.activeWindow.displayState == air.NativeWindowDisplayState.MAXIMIZED
+					window.nativeWindow.x,
+					window.nativeWindow.y,
+					window.nativeWindow.width,
+					window.nativeWindow.height,
+					window.nativeWindow.displayState == air.NativeWindowDisplayState.MAXIMIZED
 				);
 		},
 		
@@ -1002,8 +1002,16 @@ var Application = function() {
 			Layout.updateScroll(elm);
 			var id = elm.attr("id");
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
-			Application.readItem(elm,atomEntry);	
-			_item_wrap.html(atomEntry.HTML());
+			var entryHTML = atomEntry.HTML();
+			
+			// isn't work. why? O.o
+			//var favicon = LIB.favicon.getFavicon( $("a.url", entryHTML).attr( "href" ) );
+			//$(".dfavicon", entryHTML).css( { "content": favicon } );
+			//air.trace(favicon);
+			
+			Application.readItem(elm, atomEntry);	
+			
+			_item_wrap.html(entryHTML);
 			
 			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();

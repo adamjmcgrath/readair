@@ -6,19 +6,17 @@ Doesn't work at the moment - Adobe Air doesn't render .ico's in the same way saf
 if (typeof LIB == "undefined") {var LIB = {}}
 
 LIB.favicon = {
-	setFavicon: function(id,elm) {
-		var domain = id.match(/(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/);
-		domain = RegExp.$2;
-		var fsrc = "http://"+domain+"/favicon.ico";
-		
-		air.trace(fsrc);
-		
-		//elm.setAttribute("src",fsrc);
-		$(elm).attr("src",fsrc);
-		
-		elm.onerror = function (e) {
-			//elm.setAttribute("src","/assets/imb/icons/default.png");
-			$(elm).attr("src","/assets/imb/icons/default.png");
-		}
+	
+	/* get the favorite icon link
+	 * @param {String} feed url
+	 */
+	getFavicon: function( id ) {
+		var domain = id.match(/(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/i);
+		if ( domain != null )
+			var fsrc = "http://www.sectorprime.com/cgi-bin/fav2png.pl?fav=" + domain[2];
+		else
+			var fsrc = "/assets/img/themes/windows/icon_item.png";
+			
+		return fsrc;
 	}
 }
