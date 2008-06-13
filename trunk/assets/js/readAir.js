@@ -1004,14 +1004,12 @@ var Application = function() {
 			var atomEntry = new GRA.atomentry(Application._atom.getItemById(id));
 			var entryHTML = atomEntry.HTML();
 			
-			// isn't work. why? O.o
-			//var favicon = LIB.favicon.getFavicon( $("a.url", entryHTML).attr( "href" ) );
-			//$(".dfavicon", entryHTML).css( { "content": favicon } );
-			//air.trace(favicon);
-			
 			Application.readItem(elm, atomEntry);	
 			
 			_item_wrap.html(entryHTML);
+			
+			var favicon = LIB.favicon.getFavicon( $("a.url", entryHTML).attr( "href" ) );
+			$(".dfavicon", _item_wrap).attr( { "src": favicon } );
 			
 			$("img",_item_wrap).load(Layout.updateItemScrollBar);
 			Layout.updateItemScrollBar();
