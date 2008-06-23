@@ -590,6 +590,11 @@ var Application = function() {
 				var unreadCountItem = new GRA.unreadcountitem(feeds[i]);
 				var id = unreadCountItem.id();
 				var count = unreadCountItem.count();
+				
+				if (id == unreadCount.getAllId() && air.NativeApplication.supportsDockIcon) {
+					GRA.dockicon.init(count);
+				}
+				
 				// populate counts
 				$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
 					if (count > 0) {
@@ -609,6 +614,11 @@ var Application = function() {
 			if (!reduce) { reduce = 1 };
 			$("div[@href='" + id + "'], #reading-list", _feeds_wrap).each(function(i) {
 				count = ($("span:first", this).text()) - reduce;
+				
+				if ($(this).attr("id") == "reading-list" && air.NativeApplication.supportsDockIcon) {
+					GRA.dockicon.init(count);
+				}
+				
 				if (count > 0) {
 					$("span:first", this).fadeIn().text(count);
 				} else {
@@ -633,6 +643,8 @@ var Application = function() {
 					}
 				}
 			});
+			
+			
 		},
 		
 		/* Set folder open/close status

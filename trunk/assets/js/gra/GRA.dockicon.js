@@ -15,58 +15,84 @@ var GRA = window.GRA || {};
  * @return {Object} Public methods/properties.
  */
 GRA.dockicon = function() {
+
+	var icons = new Array();
+	var total = 0;
 	
-	var BMPs = new Array();
-	var icon = air.NativeApplication.nativeApplication.icon;
-	var count = 0;
-	
-	function getBMP(url,pos) {
-		var BMPLoader = new air.Loader();
-		BMPLoader.contentLoaderInfo.addEventListener(air.Event.COMPLETE,function(e,pos) {
-			BMPs.push(e.target.content.bitmapData);
-			if (pos == count) {
-				// reset count
-				count = 0;
-				updateIcon();
-			}
-		});
-		BMPLoader.load(new air.URLRequest(url));
+	function getRootIcon() {
+		return {
+			point: new air.Point(0,0),
+			url: "assets/img/ReadAir.png"
+		}
 	}
 	
-	function updateIcon() {
-		
-		// 0 - the icon
-		// 1 - the little read dot
-		// 2 - first digit
-		// 3 etc...
-
-		var point = new air.Point();
-		var rect = BMPs[0].rect;
-		
-		for (var i=1; i < BMPs.length; i++) {
-			BMPs[0].copyPixels(BMPs[i],rect,point,BMP[i],point,true);
+	function getStarIcon(num) {
+		var url = "assets/img/dock/bg";
+		if (num < 100) {
+			url += "10.png";
+		} else if (num < 1000) {
+			url += "100.png";
+		} else {
+			url += "1000.png";
+		}
+		return {
+			point: new air.Point(0,0),
+			url: url
+		}
+	};
+	
+	function getIconByNumber(num,pos,length) {
+		var x = length == 1 ? 93 : 112 - ((length-pos)*13);
+		return {
+			point: new air.Point(x,15),
+			url: "assets/img/dock/" + num + ".png"
+		}
+	}
+	
+	function getBmps() {
+		for (var i=0; i < icons.length; i++) {
+			var loader = new air.Loader();
+			loader.contentLoaderInfo.addEventListener(air.Event.COMPLETE, function(e) {
+				for (var j=0; j < icons.length; j++) {
+					if (("app:/" + icons[j].url) == e.target.url && !icons[j].done) {
+						icons[j].bmp = e.target.content.bitmapData;
+						icons[j].done = true;
+						total++;
+					}
+				};
+				if (total == icons.length){setBmps();}
+			});			
+			loader.load(new air.URLRequest(icons[i].url));
 		};
-
 	}
 	
+	function setBmps() {
+		for (var i=0; i < icons.length; i++) {
+			var bmp =  icons[i].bmp;
+			icons[0].bmp.copyPixels(bmp,bmp.rect,icons[i].point,null,null,true);
+		};
+		air.NativeApplication.nativeApplication.icon.bitmaps = [icons[0].bmp];
+	}
 	
 	return {
 		
-		showUnread(unread) {
-			// set the number of bitmaps required
-			count = 2;
-			// get a list of all the urls required
-			var urls = new Array();
-			urls = [
-				"assets/img/ReadAir.png",
-				"assets/img/dock/bg.png"
-			];
-			// loop though the array, when i hits count submit icon
-			for (var i=0; i < urls.length; i++) {
-				var j = i+1;
-				getBMP(urls[i],j);
-			};
+		init: function(count) {
+			if (count > 9999) {
+				count = 9999;
+			}
+			icons = new Array();
+			icons.push(getRootIcon());
+			total = 0;
+			if (count > 0) {
+				icons.push(getStarIcon(count));
+				var str = LIB.string.trim(count.toString());
+				var numbers = str.split("");
+				for (var i=0; i < numbers.length; i++) {
+					icons.push(getIconByNumber(numbers[i],i,numbers.length));
+				};
+			}
+			getBmps();
 		}
 		
 	}
-}
+}(); 
