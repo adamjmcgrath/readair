@@ -16,8 +16,9 @@ LIB.favicon = {
 			var domname = domain[2];
 			
 			var file = air.File.applicationStorageDirectory.resolvePath("favicons/" + domname + '.png');
-			if ( file.exists )
+			if (file.exists) {
 				return file.url;
+			}
 			
 			var fav = "http://www.sectorprime.com/cgi-bin/fav2png.pl?fav=" + domname;
 			air.trace('loading new icon from ' + fav);
@@ -28,9 +29,7 @@ LIB.favicon = {
 			loader.dataFormat = air.URLLoaderDataFormat.BINARY;
 			loader.addEventListener(air.Event.COMPLETE, function( e ) {
 				var loader = e.target;
-				
 				var file = air.File.applicationStorageDirectory.resolvePath("favicons/" + domname + '.png');
-				
 				var fileStream = new air.FileStream();
 				fileStream.open(file, air.FileMode.WRITE); 
 				fileStream.writeBytes(loader.data);
@@ -42,6 +41,7 @@ LIB.favicon = {
 		}
 
 		// default
-		return "/assets/img/themes/windows/icon_item.png";
+		
+		return air.Capabilities.os.indexOf('Windows') != -1 ? "/assets/img/themes/windows/icon_item.png" : "/assets/img/themes/macos/icon_item.png";
 	}
 }

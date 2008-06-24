@@ -198,9 +198,9 @@ var Application = function() {
 		initNativeMenus: function() {
 			// Set up menu items
 			var separator = new GRA.nativemenuitem(false);
-			var prefs = new GRA.nativemenuitem("Preferences",",",Application.showPrefs);
-			var logout = new GRA.nativemenuitem("Logout",false,Application.logout);
-			var exit = new GRA.nativemenuitem("Exit",false,Application.exit);
+			var prefs = new GRA.nativemenuitem("Preferences",",",function() {Application.showPrefs()});
+			var logout = new GRA.nativemenuitem("Logout",false,function() {Application.logout()});
+			var exit = new GRA.nativemenuitem("Exit",false,function() {Application.exit()});
 			// Set up menus
 			// Application Menu
 			if (air.NativeApplication.supportsMenu) {
@@ -590,11 +590,10 @@ var Application = function() {
 				var unreadCountItem = new GRA.unreadcountitem(feeds[i]);
 				var id = unreadCountItem.id();
 				var count = unreadCountItem.count();
-				
+				// update unread count in dock icon
 				if (id == unreadCount.getAllId() && air.NativeApplication.supportsDockIcon) {
 					GRA.dockicon.init(count);
 				}
-				
 				// populate counts
 				$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
 					if (count > 0) {
@@ -614,11 +613,10 @@ var Application = function() {
 			if (!reduce) { reduce = 1 };
 			$("div[@href='" + id + "'], #reading-list", _feeds_wrap).each(function(i) {
 				count = ($("span:first", this).text()) - reduce;
-				
+				// update unread count in dock icon
 				if ($(this).attr("id") == "reading-list" && air.NativeApplication.supportsDockIcon) {
 					GRA.dockicon.init(count);
 				}
-				
 				if (count > 0) {
 					$("span:first", this).fadeIn().text(count);
 				} else {

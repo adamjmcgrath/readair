@@ -28,7 +28,7 @@ GRA.nativemenuitem = function(label,key,callback,checked,disabled,data) {
 	this._disabled = disabled;
 	this._data = data;
 	this._item = label ? new air.NativeMenuItem(label) : new air.NativeMenuItem("",true);
-	if (this._callback) {this._item.addEventListener(air.Event.SELECT,callback);}
+	if (this._callback) {this._item.addEventListener(air.Event.SELECT,this._callback);}
 	if (this._checked) {this._item.checked = true;}
 	if (this._disabled) {this._item.disabled = true;}
 	if (this._data) {this._item.data = data;}
