@@ -1,6 +1,23 @@
 #summary ReadAir Features
 #labels Featured
 
+=== Alpha 0.3 ===
+==== Features ====
+  *  WIN: Minimize to system tray
+  *  MAC: Unread count shows in Dock Icon
+  *  More keyboard shortcuts (shift+a - mark all read / r - refresh)
+  *  Themes: Windows theme (started)
+  *  (Limited) Favicon support
+  *  Save window position
+==== Bug Fixes ====
+  *  ISSUE 1: Zebra Striping Consistency
+  *  ISSUE 4: Added logout option
+  *  ISSUE 6: Url shows up in bottom status bar
+  *  ISSUE 7: Logout option
+  *  ISSUE 21: Sort folders alphabetically
+  *  ISSUE 28: Blank Feed Window
+  *  Endelss Feeds Bug
+
 === Alpha 0.21 (The D'Oh! Release) ===
 ==== Bug Fixes ====
   * Unread status wasn't showing when using continuation - this is now fixed (Apologies to the 50 or so people that downloaded 0.2!)
