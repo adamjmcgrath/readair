@@ -627,8 +627,7 @@ var Application = function() {
 			// and tag read items count too
 			$("div[@href='" + id + "']", _feeds_wrap).each(function(i) {
 				// ugly, but works
-				var tmp = $(this).parent().parent().parent();
-				
+				var tmp = $(this).parent().parent().parent();					
 				// special check for non-tagged elements
 				if ( !tmp.is("div") ) {				
 					tmp = tmp.parent();

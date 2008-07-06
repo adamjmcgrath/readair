@@ -72,6 +72,9 @@ GRA.dockicon = function() {
 			icons[0].bmp.copyPixels(bmp,bmp.rect,icons[i].point,null,null,true);
 		};
 		air.NativeApplication.nativeApplication.icon.bitmaps = [icons[0].bmp];
+		
+		air.trace(air.NativeApplication.nativeApplication.icon.bitmaps);
+		
 	}
 	
 	return {
