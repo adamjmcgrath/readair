@@ -1,0 +1,184 @@
+body, select, input, option {
+	font: 8pt Tahoma !important;
+}
+
+body.dialogue {
+	background: #ece9d8;
+}
+
+#item-inner-iframe #head {
+	font-family: Tahoma;
+}
+
+input {
+	padding: 3px;
+}
+
+.bar {
+	background: url(/assets/img/themes/windows/back_bar.png) repeat-x 0 0;
+	border-top: 1px solid #959385;
+}
+
+img.ifolder {
+	content: url(/assets/img/themes/windows/icon_folder.png);
+}
+
+img.favicon {
+	content: url('/assets/img/themes/windows/icon_item.png');
+}
+
+.ui-resizable-s {
+	background-image: url(/assets/img/themes/windows/resize.png) !important;
+	height: 5px !important;
+}
+
+#feeds-bar #resize {
+	background-image: url(/assets/img/themes/windows/resize.png);
+}
+
+#feeds li span {
+	font: 6pt Tahoma;
+	font-weight: bold;
+	padding-top: 2px;
+	height: 12px;
+}
+
+#feeds li div.selected span {
+	background-image: url(/assets/img/themes/windows/numleft_on.png), url(/assets/img/themes/windows/numright_on.png);
+}
+
+#feeds li span {
+	background-image: url(/assets/img/themes/windows/numleft.png), url(/assets/img/themes/windows/numright.png);
+}
+
+#items-table-head {
+	background: #ebeadb url(/assets/img/themes/windows/back_grid_title.png) repeat-x bottom;
+	border-top: 1px solid #ebeadb;
+	height: 17px;
+}
+
+#items-table-inner tr.stripe {
+	background-color: #fcfcfc;
+}
+
+#items-table-inner tr.selected {
+	background: #316ac5;
+}
+
+/* menu 
+--------------------------------------- */
+
+#menubar {
+	background: url(/assets/img/themes/windows/menubar.png) repeat-x top;
+	border-bottom: 1px solid #7f9db9;
+	color: transparent;
+	height: 34px;
+	top: 0px;
+}
+	
+	#menubar li {
+		background-position: bottom;
+	}
+	
+	#menubar #search form {
+		top: 17px;
+	}
+
+	#menubar #refresh {
+		background-image: url(/assets/img/themes/windows/toolbar_refresh.png);
+	}
+
+	#menubar #refresh:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_refresh_on.png);
+	}
+
+	#menubar #prev {
+		background-image: url(/assets/img/themes/windows/toolbar_prev.png);
+		left: 200px;
+		min-width: 54px;
+	}
+
+	#menubar #prev:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_prev_on.png);
+	}
+
+	#menubar #next {
+		background-image: url(/assets/img/themes/windows/toolbar_next.png);
+		left: 240px;
+		min-width: 55px;
+	}
+
+	#menubar #next:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_next_on.png);
+	}
+
+	#menubar #mark {
+		background-image: url(/assets/img/themes/windows/toolbar_markread.png);
+		left: 324px;
+		min-width: 53px;
+	}
+
+	#menubar #mark:hover {
+		background-image: url(/assets/img/themes/windows/toolbar_markread_on.png);
+	}
+	
+#wrap-outer {
+	top: 35px;
+}
+
+/* forms 
+--------------------------------------- */
+
+button {
+	background-image: url(/assets/img/themes/windows/button_off_left.png), url(/assets/img/themes/windows/button_off_right.png), url(/assets/img/themes/windows/button_off_middle.png);
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: top left, top right, top left;
+	border: 0;
+	font-weight: normal;
+	line-height: 20px;
+	padding: 0 20px 2px 20px;	
+}
+
+button:hover, button:focus, button:active, button.on {
+	background-image: url(/assets/img/themes/windows/button_on_left.png), url(/assets/img/themes/windows/button_on_right.png), url(/assets/img/themes/windows/button_on_middle.png);
+}
+
+input {
+	background-color: white;
+	border: 1px solid #7f9db9;
+}
+
+.jquery-checkbox {
+	margin-left: -2px;
+}
+
+	.jquery-checkbox img{
+		background: transparent url(/assets/img/themes/windows/checkbox.png) no-repeat;
+	}
+	
+/* scrollers
+--------------------------------------- */
+	
+.jScrollPaneTrack {
+	background: url(/assets/img/themes/windows/scrollbar_track.gif) repeat-y;
+}
+
+.jScrollPaneDrag {
+	background: url(/assets/img/themes/windows/scrollbar_drag_middle.gif) repeat-y;
+}
+
+.jScrollPaneDragTop {
+	background: url(/assets/img/themes/windows/scrollbar_drag_top.gif) no-repeat;
+}
+
+.jScrollPaneDragBottom {
+	background: url(/assets/img/themes/windows/scrollbar_drag_bottom.gif) no-repeat;
+}
+
+a.jScrollArrowUp {
+	background: url(/assets/img/themes/windows/scrollbar_arrow_up.png) no-repeat 0 -30px;
+}
+
+a.jScrollArrowDown {
+	background: url(/assets/img/themes/windows/scrollbar_arrow_down.png) no-repeat 0 -30px;
+}
