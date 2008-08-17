@@ -275,6 +275,15 @@ var Application = function() {
 				.click(this.itemClicked)
 				.mouseover( this.itemMouseOver )
 				.mouseout(  this.itemMouseOut );
+				
+			// top menu buttons hint
+			$("li", "#menubar")
+				.mouseover( function() {
+					Application.statusText( $(this).attr("title") );
+				} )
+				.mouseout( function() {
+					Application.statusText( "" );
+				} );
 			
 			/* menubar */
 			// Refresh btn click
