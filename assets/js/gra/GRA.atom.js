@@ -120,7 +120,8 @@ GRA.atom.prototype = {
 	HTML: function() {
 		var HTML = "";
 		if (this._isXML()) {
-			HTML = LIB.xslt.transformToFragment("/assets/xslt/atom.xslt",this._xml);
+			tempString = LIB.dom.toString(this._xml).replace(/&nbsp;/g, ' ');
+			HTML = LIB.xslt.transformToFragment("/assets/xslt/atom.xslt",tempString);
 		} else if (this._isJSON()) {
 			var entries = this.getEntries();
 			for (var i=0; i < entries.length; i++) {
