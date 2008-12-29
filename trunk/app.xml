@@ -3,7 +3,7 @@
 	<id>com.adammcgrath.ReadAir</id>
 	<filename>ReadAir</filename>
 	<name>ReadAir</name>
-	<version>0.3</version>
+	<version>0.4</version>
 	<description>A Desktop Client for Google Reader on Air</description>
 	<initialWindow>
 		<content>readair.html</content>
