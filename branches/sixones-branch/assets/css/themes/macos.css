@@ -1,0 +1,195 @@
+#item-inner-iframe #head {
+	font-family: "Lucida Grande", Arial;
+}
+
+body.dialogue {
+	background: #e8e8e8;
+}
+
+.bar {
+	background: url(/assets/img/themes/macos/back_bar.png) repeat-x 0 0;
+	border-top: 1px solid #CECECE;
+}
+
+img.ifolder {
+	content: url(/assets/img/themes/macos/icon_folder.png) no-repeat;
+}
+
+img.favicon {
+	content: url('/assets/img/themes/macos/icon_item.png');
+}
+
+.ui-resizable-s {
+	background-image: url(/assets/img/themes/macos/resize_button.png), url(/assets/img/themes/macos/resize.png) !important;
+}
+
+#status-bar {
+	margin-bottom: -1px;
+}
+
+#feeds-inner {
+	background: #DEE4EA;
+}
+
+	#feeds li div.selected span {
+		background-image: url(/assets/img/themes/macos/numleft_on.png), url(/assets/img/themes/macos/numright_on.png);
+	}
+	
+	#feeds li span {
+		background-image: url(/assets/img/themes/macos/numleft.png), url(/assets/img/themes/macos/numright.png);
+	}
+
+#items-table-head {
+	background: url(/assets/img/themes/macos/back_grid_title.png) repeat-x 0 0;
+	border-bottom: 1px solid #B4B4B4;
+	height: 15px;
+	padding-top: 2px;
+}
+
+#items-table-inner tr.stripe {
+	background-color: #f4f7fa;
+}
+
+#items-table-inner tr.selected {
+	background: #6897DA;
+}
+
+/* menu 
+--------------------------------------- */
+
+#menubar {
+	background: url(/assets/img/themes/macos/menubar.png) repeat-x bottom left;
+	border-bottom: 1px solid #515151;
+}
+
+	#menubar #refresh {
+		background-image: url(/assets/img/themes/macos/toolbar_refresh.png);
+		left: 10px;
+		min-width: 41px;
+	}
+
+	#menubar #refresh:hover {
+		background-image: url(/assets/img/themes/macos/toolbar_refresh_on.png);
+	}
+
+	#menubar #prev {
+		background-image: url(/assets/img/themes/macos/toolbar_prev.png);
+		left: 210px;
+		min-width: 54px;
+	}
+
+	#menubar #prev:hover {
+		background-image: url(/assets/img/themes/macos/toolbar_prev_on.png);
+	}
+
+	#menubar #next {
+		background-image: url(/assets/img/themes/macos/toolbar_next.png);
+		left: 264px;
+		min-width: 55px;
+	}
+
+	#menubar #next:hover {
+		background-image: url(/assets/img/themes/macos/toolbar_next_on.png);
+	}
+
+	#menubar #mark {
+		background-image: url(/assets/img/themes/macos/toolbar_markread.png);
+		left: 324px;
+		min-width: 53px;
+	}
+
+	#menubar #mark:hover {
+		background-image: url(/assets/img/themes/macos/toolbar_markread_on.png);
+	}
+
+/* forms 
+--------------------------------------- */
+
+button {
+	background-image: url(/assets/img/themes/macos/button_off_left.png), url(/assets/img/themes/macos/button_off_right.png), url(/assets/img/themes/macos/button_off_middle.png);
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: top left, top right, top left;
+	border: 0;
+	font-weight: normal;
+	line-height: 20px;
+	padding: 0 20px 2px 20px;	
+}
+
+button:hover, button:focus, button:active, button.on {
+	background-image: url(/assets/img/themes/macos/button_on_left.png), url(/assets/img/themes/macos/button_on_right.png), url(/assets/img/themes/macos/button_on_middle.png);
+}
+
+input {
+	background-image: url(/assets/img/themes/macos/input_right.png), url(/assets/img/themes/macos/input_middle.png);
+	background-repeat: no-repeat, repeat-x;
+	background-position: top right, top left;
+	border-bottom: 1px solid #DADADA;
+	border-left: 1px solid #B4B4B4;
+	border-right: 1px solid #B4B4B4;
+	border-top: 1px solid #727272;
+	line-height: 18px;
+}
+
+select {
+	width: 100%;
+	line-height: 18px;
+}
+
+	select:focus {
+		outline: none;
+		outline-color: red;
+	}
+
+.select-wrap {
+	background: white;
+	border: 1px solid #999;
+}
+
+.select {
+	height: 100px;
+	line-height: 14px;
+	overflow: hidden;
+	padding-bottom: 3px;
+	text-indent: 2px;
+	width: 100%;
+}
+
+	.select .on {
+		background: #6897DA;
+		color: white;
+	}
+	
+.jquery-checkbox {
+	margin-left: -1px;
+}
+	
+	.jquery-checkbox img{
+		background: transparent url(/assets/img/themes/macos/checkbox.png) no-repeat;
+	}
+	
+/* scrollers
+--------------------------------------- */
+	
+.jScrollPaneTrack {
+	background: url(/assets/img/themes/macos/scrollbar_track.gif) repeat-y;
+}
+
+.jScrollPaneDrag {
+	background: url(/assets/img/themes/macos/scrollbar_drag_middle.gif) repeat-y;
+}
+
+.jScrollPaneDragTop {
+	background: url(/assets/img/themes/macos/scrollbar_drag_top.gif) no-repeat;
+}
+
+.jScrollPaneDragBottom {
+	background: url(/assets/img/themes/macos/scrollbar_drag_bottom.gif) no-repeat;
+}
+
+a.jScrollArrowUp {
+	background: url(/assets/img/themes/macos/scrollbar_arrow_up.png) no-repeat 0 -30px;
+}
+
+a.jScrollArrowDown {
+	background: url(/assets/img/themes/macos/scrollbar_arrow_down.png) no-repeat 0 -30px;
+}

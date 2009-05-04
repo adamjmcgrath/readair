@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/1.0" minimumPatchLevel="0">
+	<id>com.adammcgrath.ReadAir</id>
+	<filename>ReadAir</filename>
+	<name>ReadAir</name>
+	<version>0.4</version>
+	<description>A Desktop Client for Google Reader on Air</description>
+	<initialWindow>
+		<content>readair.html</content>
+		<title>ReadAir</title>
+		<systemChrome>standard</systemChrome>
+		<transparent>false</transparent>
+		<visible>false</visible>
+		<minimizable>true</minimizable>
+		<maximizable>true</maximizable>
+		<resizable>true</resizable>
+		<width>800</width>
+		<height>600</height>
+		<x>200</x>
+		<y>100</y>
+		<minSize>600 400</minSize>
+		<!-- <maxSize></maxSize> -->
+	</initialWindow>
+	<icon>
+		<image16x16>icon/ReadAir_16.png</image16x16>
+		<image32x32>icon/ReadAir_32.png</image32x32>
+		<image48x48>icon/ReadAir_48.png</image48x48>
+		<image128x128>icon/ReadAir_128.png</image128x128>
+	</icon>
+</application>
